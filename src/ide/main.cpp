@@ -20,13 +20,18 @@
  * SOFTWARE.
  */
 #include "includes.h"
+#include "ui.h"
 SDL_Window* mainWindow;
 SDL_Renderer* mainRenderer;
 SDL_Event* event;
+bool willquit;
+uisystem* ui;
 
 int main() {
+  willquit=false;
   // init everything
   SDL_Init(SDL_INIT_VIDEO);
+  event=new SDL_Event;
   string title;
   title="LowerTriad";
   mainWindow=SDL_CreateWindow(title.c_str(),0,0,1024,600,0);
@@ -36,8 +41,17 @@ int main() {
   }
   mainRenderer=SDL_CreateRenderer(mainWindow,-1,SDL_RENDERER_ACCELERATED|SDL_RENDERER_PRESENTVSYNC);
   while (1) {
+    // check events
+    while (SDL_PollEvent(event)) {
+      if (event->type==SDL_QUIT) {
+        willquit=true;
+      }
+    }
     SDL_RenderClear(mainRenderer);
     SDL_RenderPresent(mainRenderer);
+    if (willquit) {
+      break;
+    }
   }
   return 0;
 }
