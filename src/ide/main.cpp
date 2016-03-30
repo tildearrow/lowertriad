@@ -24,6 +24,9 @@
 SDL_Window* mainWindow;
 SDL_Renderer* mainRenderer;
 SDL_Event* event;
+int mouseX;
+int mouseY;
+SDL_Color color;
 bool willquit;
 uisystem* ui;
 
@@ -31,6 +34,7 @@ int main() {
   willquit=false;
   // init everything
   SDL_Init(SDL_INIT_VIDEO);
+  ui=new uisystem;
   event=new SDL_Event;
   string title;
   title="LowerTriad";
@@ -40,6 +44,10 @@ int main() {
     return 1;
   }
   mainRenderer=SDL_CreateRenderer(mainWindow,-1,SDL_RENDERER_ACCELERATED|SDL_RENDERER_PRESENTVSYNC);
+  // initialize UI
+  ui->setrenderer(mainRenderer);
+  color.r=255; color.g=255; color.b=255; color.a=255;
+  ui->addbutton(16,16,64,32,"test","test hint",color,color);
   while (1) {
     // check events
     while (SDL_PollEvent(event)) {
@@ -48,6 +56,9 @@ int main() {
       }
     }
     SDL_RenderClear(mainRenderer);
+    SDL_GetMouseState(&mouseX, &mouseY);
+    printf("coords: %d, %d\n",mouseX,mouseY);
+    ui->drawall();
     SDL_RenderPresent(mainRenderer);
     if (willquit) {
       break;

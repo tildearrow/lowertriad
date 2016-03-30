@@ -21,14 +21,34 @@
  */
 #include "ui.h"
 
-void button::draw() {
-  SDL_RenderDrawRect(renderer,&coords);
+void uisystem::drawall() {
+  for (int i=0; i<buttons.size(); i++) {
+    SDL_RenderDrawRect(renderer, &buttons[i].coords);
+  }
+  for (int i=0; i<labels.size(); i++) {
+    
+  }
+  for (int i=0; i<textfields.size(); i++) {
+    
+  }
 }
 
-void textfield::draw() {
-  
+void uisystem::setrenderer(SDL_Renderer* r) {
+  renderer=r;
 }
 
-void label::draw() {
-  
+void uisystem::addbutton(int xpos, int ypos, int width, int height, string btext, string bhint, SDL_Color bcolor, SDL_Color bbordercolor) {
+  buttons.resize(buttons.size()+1);
+  buttons[buttons.size()-1].coords.x=xpos;
+  buttons[buttons.size()-1].coords.y=ypos;
+  buttons[buttons.size()-1].coords.w=width;
+  buttons[buttons.size()-1].coords.h=height;
+  buttons[buttons.size()-1].color.r=bcolor.r;
+  buttons[buttons.size()-1].color.g=bcolor.g;
+  buttons[buttons.size()-1].color.b=bcolor.b;
+  buttons[buttons.size()-1].color.a=bcolor.a;
+  buttons[buttons.size()-1].bordercolor.r=bbordercolor.r;
+  buttons[buttons.size()-1].bordercolor.g=bbordercolor.g;
+  buttons[buttons.size()-1].bordercolor.b=bbordercolor.b;
+  buttons[buttons.size()-1].bordercolor.a=bbordercolor.a;
 }

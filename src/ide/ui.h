@@ -21,31 +21,22 @@
  */
 #include "includes.h"
 
-class uielement {
-  public:
-    SDL_Rect coords;
-    SDL_Renderer* renderer;
+struct button {
+  SDL_Rect coords;
+  string text, hint;
+  SDL_Color color, bordercolor;
 };
 
-class button:uielement {
-  public:
-    string text, hint;
-    SDL_Color color, bordercolor;
-  void draw();
+struct label {
+  SDL_Rect coords;
+  string text;
+  SDL_Color color;
 };
 
-class label:uielement {
-  public:
-    string text;
-    SDL_Color color;
-  void draw();
-};
-
-class textfield:uielement {
-  public:
-    string text, hint, deftext;
-    SDL_Color color, bordercolor, bgcolor;
-  void draw();
+struct textfield {
+  SDL_Rect coords;
+  string text, hint, deftext;
+  SDL_Color color, bordercolor, bgcolor;
 };
 
 class uisystem {
@@ -54,6 +45,7 @@ class uisystem {
   std::vector<textfield> textfields;
   SDL_Renderer* renderer;
 public:
-  void addbutton(int x, int y, int w, int h, string text, string hint, SDL_Color color, SDL_Color bordercolor);
+  void addbutton(int xpos, int ypos, int width, int height, string btext, string bhint, SDL_Color bcolor, SDL_Color bbordercolor);
+  void setrenderer(SDL_Renderer* r);
   void drawall();
 };
