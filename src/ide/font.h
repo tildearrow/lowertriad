@@ -19,3 +19,22 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+#ifndef FONT_H
+#define FONT_H
+#include "includes.h"
+
+class font {
+  TTF_Font* f;
+  SDL_Renderer* renderer;
+  SDL_Surface* temps;
+  SDL_Texture* tempt;
+  int* mx;
+  int* my;
+  SDL_Rect tempr;
+  public:
+  void draw(int x, int y, SDL_Color col, string text);
+  int load(const char* filename, int size);
+  void setrenderer(SDL_Renderer* r);
+  void setcursor(int* mx, int* my);
+};
+#endif

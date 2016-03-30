@@ -19,3 +19,26 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+#include "font.h"
+
+int font::load(const char* filename, int size) {
+  f=TTF_OpenFont(filename, size);
+  if (f==NULL) {return 0;} else {return 1;}
+}
+
+void font::setrenderer(SDL_Renderer* r) {
+  renderer=r;
+}
+
+void font::draw(int x, int y, SDL_Color col, string text) {
+  temps=TTF_RenderUTF8_Blended(f, text.c_str(), col);
+  if (temps==NULL) {printf("aaaa\n");}
+  tempt=SDL_CreateTextureFromSurface(renderer, temps);
+  tempr.x=x;
+  tempr.y=y;
+  tempr.w=temps->clip_rect.w;
+  tempr.h=temps->clip_rect.h;
+  SDL_RenderCopy(renderer, tempt, &temps->clip_rect, &tempr);
+  SDL_DestroyTexture(tempt);
+  SDL_FreeSurface(temps);
+}
