@@ -20,6 +20,7 @@
  * SOFTWARE.
  */
 #include "includes.h"
+#include "font.h"
 #include "ui.h"
 SDL_Window* mainWindow;
 SDL_Renderer* mainRenderer;
@@ -29,11 +30,13 @@ int mouseY;
 SDL_Color color;
 bool willquit;
 uisystem* ui;
+font* mainFont;
 
 int main() {
   willquit=false;
   // init everything
   SDL_Init(SDL_INIT_VIDEO);
+  TTF_Init();
   ui=new uisystem;
   event=new SDL_Event;
   string title;
@@ -45,8 +48,14 @@ int main() {
   }
   mainRenderer=SDL_CreateRenderer(mainWindow,-1,SDL_RENDERER_ACCELERATED|SDL_RENDERER_PRESENTVSYNC);
   // initialize UI
+  mainFont=new font;
+  mainFont->setrenderer(mainRenderer);
+  if (!mainFont->load("/System/Library/Fonts/SFNSDisplay-Regular.otf",20)) {
+    printf("can't load font\n");
+  }
   ui->setrenderer(mainRenderer);
   color.r=255; color.g=255; color.b=255; color.a=255;
+  ui->setfont(mainFont);
   ui->addbutton(16,16,64,32,"test","test hint",color,color);
   while (1) {
     // check events
@@ -55,6 +64,7 @@ int main() {
         willquit=true;
       }
     }
+    SDL_SetRenderDrawColor(mainRenderer,0,0,0,0);
     SDL_RenderClear(mainRenderer);
     SDL_GetMouseState(&mouseX, &mouseY);
     printf("coords: %d, %d\n",mouseX,mouseY);

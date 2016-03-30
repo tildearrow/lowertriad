@@ -20,6 +20,7 @@
  * SOFTWARE.
  */
 #include "includes.h"
+#include "font.h"
 
 struct button {
   SDL_Rect coords;
@@ -44,8 +45,10 @@ class uisystem {
   std::vector<label> labels;
   std::vector<textfield> textfields;
   SDL_Renderer* renderer;
+  font* gf;
 public:
   void addbutton(int xpos, int ypos, int width, int height, string btext, string bhint, SDL_Color bcolor, SDL_Color bbordercolor);
   void setrenderer(SDL_Renderer* r);
+  void setfont(font* fontset);
   void drawall();
 };

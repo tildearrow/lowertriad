@@ -23,6 +23,8 @@
 
 void uisystem::drawall() {
   for (int i=0; i<buttons.size(); i++) {
+    gf->draw(buttons[i].coords.x, buttons[i].coords.y, buttons[i].color, buttons[i].text);
+    SDL_SetRenderDrawColor(renderer, buttons[i].color.r, buttons[i].color.g, buttons[i].color.b, buttons[i].color.a);
     SDL_RenderDrawRect(renderer, &buttons[i].coords);
   }
   for (int i=0; i<labels.size(); i++) {
@@ -51,4 +53,10 @@ void uisystem::addbutton(int xpos, int ypos, int width, int height, string btext
   buttons[buttons.size()-1].bordercolor.g=bbordercolor.g;
   buttons[buttons.size()-1].bordercolor.b=bbordercolor.b;
   buttons[buttons.size()-1].bordercolor.a=bbordercolor.a;
+  buttons[buttons.size()-1].text=btext;
+  buttons[buttons.size()-1].hint=bhint;
+}
+
+void uisystem::setfont(font* fontset) {
+  gf=fontset;
 }
