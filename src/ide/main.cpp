@@ -41,7 +41,7 @@ int main() {
   event=new SDL_Event;
   string title;
   title="LowerTriad";
-  mainWindow=SDL_CreateWindow(title.c_str(),0,0,1024,600,0);
+  mainWindow=SDL_CreateWindow(title.c_str(),0,0,1024,600,SDL_WINDOW_RESIZABLE);
   if (!mainWindow) {
     printf("i'm sorry, but window can't be created: %s\n",SDL_GetError());
     return 1;
@@ -50,13 +50,14 @@ int main() {
   // initialize UI
   mainFont=new font;
   mainFont->setrenderer(mainRenderer);
-  if (!mainFont->load("/System/Library/Fonts/SFNSDisplay-Regular.otf",20)) {
+  if (!mainFont->load("/System/Library/Fonts/SFNSDisplay-Regular.otf",14)) {
     printf("can't load font\n");
   }
   ui->setrenderer(mainRenderer);
   color.r=255; color.g=255; color.b=255; color.a=255;
   ui->setfont(mainFont);
   ui->addbutton(16,16,64,32,"test","test hint",color,color);
+  ui->setmouse(&mouseX,&mouseY);
   while (1) {
     // check events
     while (SDL_PollEvent(event)) {
@@ -67,7 +68,6 @@ int main() {
     SDL_SetRenderDrawColor(mainRenderer,0,0,0,0);
     SDL_RenderClear(mainRenderer);
     SDL_GetMouseState(&mouseX, &mouseY);
-    printf("coords: %d, %d\n",mouseX,mouseY);
     ui->drawall();
     SDL_RenderPresent(mainRenderer);
     if (willquit) {
