@@ -32,7 +32,7 @@ class font {
   int* my;
   SDL_Rect tempr;
   public:
-  void draw(int x, int y, SDL_Color col, string text);
+  void draw(int x, int y, SDL_Color col, int align, int valign, string text);
   int load(const char* filename, int size);
   void setrenderer(SDL_Renderer* r);
   void setcursor(int* mx, int* my);
