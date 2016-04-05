@@ -10,3 +10,16 @@ SDL2 and SDL2_ttf
 CMake 2.8 or later
 
 Visual Studio 2015 or later (on Windows)
+
+## Compiling
+### Linux and OS X
+install dependencies, then clone this repository and
+```
+mkdir build
+cd build
+cmake ..
+make
+```
+
+### Windows
+coming soon.
