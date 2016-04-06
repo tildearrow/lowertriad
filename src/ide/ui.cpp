@@ -30,8 +30,10 @@ void uisystem::drawall() {
     gf->draw(buttons[i].coords.x+buttons[i].coords.w/2, buttons[i].coords.y+buttons[i].coords.h/2, buttons[i].color, 1, 1, buttons[i].text);
     SDL_SetRenderDrawColor(renderer, buttons[i].color.r, buttons[i].color.g, buttons[i].color.b, buttons[i].color.a);
     if (PIR(buttons[i].coords, *mx, *my)) {
-      SDL_RenderFillRect(renderer, &buttons[i].coords);
+      SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+      SDL_RenderDrawRect(renderer, &buttons[i].coords);
     } else {
+      SDL_SetRenderDrawColor(renderer, buttons[i].color.r, buttons[i].color.g, buttons[i].color.b, buttons[i].color.a);
       SDL_RenderDrawRect(renderer, &buttons[i].coords);
     }
   }

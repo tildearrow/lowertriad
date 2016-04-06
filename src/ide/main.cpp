@@ -19,6 +19,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+#ifdef _WIN32
+#define FONT "C:\\Windows\\Fonts\\segoeui.ttf"
+#elif __APPLE__
+#define FONT "/System/Library/Fonts/SFNSDisplay-Regular.otf"
+#elif __linux__
+#define FONT "/usr/share/fonts/TTF/Ubuntu-R.ttf"
+#else
+#warning "really? please tell me if you are compiling on this OS"
+#endif
+
 #include "includes.h"
 #include "font.h"
 #include "ui.h"
@@ -50,13 +60,25 @@ int main() {
   // initialize UI
   mainFont=new font;
   mainFont->setrenderer(mainRenderer);
-  if (!mainFont->load("/System/Library/Fonts/SFNSDisplay-Regular.otf",14)) {
-    printf("can't load font\n");
+  if (!mainFont->load(FONT,14)) {
+    printf("can't load font, which means this application is going to crash now...\n");
   }
   ui->setrenderer(mainRenderer);
-  color.r=255; color.g=255; color.b=255; color.a=255;
+  color.r=0; color.g=255; color.b=0; color.a=255;
   ui->setfont(mainFont);
-  ui->addbutton(16,16,64,32,"test","test hint",color,color);
+  ui->addbutton(0,0,48,22,"Prepare","Prepare CMake project",color,color);
+  ui->addbutton(48,0,40,22,"Build","Build game",color,color);
+  ui->addbutton(88,0,32,22,"Run","Run compiled game",color,color);
+  ui->addbutton(120,0,56,22,"Package","Create package",color,color);
+  
+  ui->addbutton(200,0,50,22,"Sprites","",color,color);
+  ui->addbutton(250,0,50,22,"Tiles","",color,color);
+  ui->addbutton(300,0,50,22,"Backgrounds","",color,color);
+  ui->addbutton(350,0,50,22,"Audio","",color,color);
+  ui->addbutton(400,0,50,22,"Objects","",color,color);
+  ui->addbutton(450,0,50,22,"Scenes","",color,color);
+  ui->addbutton(500,0,50,22,"Functions","",color,color);
+  
   ui->setmouse(&mouseX,&mouseY);
   while (1) {
     // check events
