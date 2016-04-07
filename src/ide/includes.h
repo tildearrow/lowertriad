@@ -24,6 +24,7 @@
 #include <stdio.h>
 #include <string>
 #include <vector>
+#include <stdarg.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 typedef std::string string;
