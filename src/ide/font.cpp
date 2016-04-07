@@ -30,7 +30,11 @@ void font::setrenderer(SDL_Renderer* r) {
   renderer=r;
 }
 
-void font::draw(int x, int y, SDL_Color col, int align, int valign, string text) {
+void font::drawf(int x, int y, SDL_Color col, int align, int valign, const char* format, ...) {
+  
+}
+
+void font::draw(int x, int y, SDL_Color col, int align, int valign, bool nocache, string text) {
   temps=TTF_RenderUTF8_Blended(f, text.c_str(), col);
   if (temps==NULL) {printf("aaaa\n");}
   tempt=SDL_CreateTextureFromSurface(renderer, temps);

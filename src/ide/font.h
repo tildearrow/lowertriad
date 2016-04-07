@@ -30,9 +30,12 @@ class font {
   SDL_Texture* tempt;
   int* mx;
   int* my;
+  const char* formatcache;
+  int curfsize;
   SDL_Rect tempr;
   public:
-  void draw(int x, int y, SDL_Color col, int align, int valign, string text);
+  void draw(int x, int y, SDL_Color col, int align, int valign, bool nocache, string text);
+  void drawf(int x, int y, SDL_Color col, int align, int valign, const char* format, ...);
   int load(const char* filename, int size);
   void setrenderer(SDL_Renderer* r);
   void setcursor(int* mx, int* my);
