@@ -28,6 +28,7 @@ struct button {
   SDL_Rect coords;
   string text, hint;
   SDL_Color color, bordercolor;
+  void(* function)();
 };
 
 struct label {
@@ -49,11 +50,15 @@ class uisystem {
   SDL_Renderer* renderer;
   int* mx;
   int* my;
+  unsigned int* mb;
+  unsigned int* mbold;
+  unsigned int mbpress;
+  unsigned int mbrelease;
   font* gf;
 public:
-  void addbutton(int xpos, int ypos, int width, int height, string btext, string bhint, SDL_Color bcolor, SDL_Color bbordercolor);
+  void addbutton(int xpos, int ypos, int width, int height, string btext, string bhint, SDL_Color bcolor, SDL_Color bbordercolor, void(* function)());
   void setrenderer(SDL_Renderer* r);
   void setfont(font* fontset);
-  void setmouse(int* x, int* y);
+  void setmouse(int* x, int* y, unsigned int* b, unsigned int* bold);
   void drawall();
 };

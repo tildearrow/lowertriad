@@ -37,10 +37,16 @@ SDL_Renderer* mainRenderer;
 SDL_Event* event;
 int mouseX;
 int mouseY;
+unsigned int mouseB;
+unsigned int mouseBold;
 SDL_Color color;
 bool willquit;
 uisystem* ui;
 font* mainFont;
+
+void doNothing(){
+  printf("hello world!\n");
+}
 
 int main() {
   willquit=false;
@@ -66,20 +72,20 @@ int main() {
   ui->setrenderer(mainRenderer);
   color.r=0; color.g=255; color.b=0; color.a=255;
   ui->setfont(mainFont);
-  ui->addbutton(0,0,48,22,"Prepare","Prepare CMake project",color,color);
-  ui->addbutton(48,0,40,22,"Build","Build game",color,color);
-  ui->addbutton(88,0,32,22,"Run","Run compiled game",color,color);
-  ui->addbutton(120,0,56,22,"Package","Create package",color,color);
+  ui->addbutton(0,0,48,22,"Prepare","Prepare CMake project",color,color,doNothing);
+  ui->addbutton(48,0,40,22,"Build","Build game",color,color,doNothing);
+  ui->addbutton(88,0,32,22,"Run","Run compiled game",color,color,doNothing);
+  ui->addbutton(120,0,56,22,"Package","Create package",color,color,doNothing);
   
-  ui->addbutton(200,0,50,22,"Sprites","",color,color);
-  ui->addbutton(250,0,50,22,"Tiles","",color,color);
-  ui->addbutton(300,0,50,22,"Backgrounds","",color,color);
-  ui->addbutton(350,0,50,22,"Audio","",color,color);
-  ui->addbutton(400,0,50,22,"Objects","",color,color);
-  ui->addbutton(450,0,50,22,"Scenes","",color,color);
-  ui->addbutton(500,0,50,22,"Functions","",color,color);
+  ui->addbutton(200,0,50,22,"Sprites","",color,color,doNothing);
+  ui->addbutton(250,0,50,22,"Tiles","",color,color,doNothing);
+  ui->addbutton(300,0,50,22,"Backgrounds","",color,color,doNothing);
+  ui->addbutton(350,0,50,22,"Audio","",color,color,doNothing);
+  ui->addbutton(400,0,50,22,"Objects","",color,color,doNothing);
+  ui->addbutton(450,0,50,22,"Scenes","",color,color,doNothing);
+  ui->addbutton(500,0,50,22,"Functions","",color,color,doNothing);
   
-  ui->setmouse(&mouseX,&mouseY);
+  ui->setmouse(&mouseX,&mouseY,&mouseB,&mouseBold);
   while (1) {
     // check events
     while (SDL_PollEvent(event)) {
@@ -89,7 +95,8 @@ int main() {
     }
     SDL_SetRenderDrawColor(mainRenderer,0,0,0,0);
     SDL_RenderClear(mainRenderer);
-    SDL_GetMouseState(&mouseX, &mouseY);
+    mouseBold=mouseB;
+    mouseB=SDL_GetMouseState(&mouseX, &mouseY);
     ui->drawall();
     SDL_RenderPresent(mainRenderer);
     if (willquit) {

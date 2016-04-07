@@ -27,11 +27,14 @@ bool PIR(SDL_Rect r, int x, int y) {
 
 void uisystem::drawall() {
   for (int i=0; i<buttons.size(); i++) {
-    gf->draw(buttons[i].coords.x+buttons[i].coords.w/2, buttons[i].coords.y+buttons[i].coords.h/2, buttons[i].color, 1, 1, buttons[i].text);
+    gf->draw(buttons[i].coords.x+buttons[i].coords.w/2, buttons[i].coords.y+buttons[i].coords.h/2, buttons[i].color, 1, 1, false, buttons[i].text);
     SDL_SetRenderDrawColor(renderer, buttons[i].color.r, buttons[i].color.g, buttons[i].color.b, buttons[i].color.a);
     if (PIR(buttons[i].coords, *mx, *my)) {
       SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
       SDL_RenderDrawRect(renderer, &buttons[i].coords);
+      if (((*mb^*mbold)&*mb)==1) {
+        (*(void(*)())buttons[i].function)();
+      }
     } else {
       SDL_SetRenderDrawColor(renderer, buttons[i].color.r, buttons[i].color.g, buttons[i].color.b, buttons[i].color.a);
       SDL_RenderDrawRect(renderer, &buttons[i].coords);
@@ -49,12 +52,14 @@ void uisystem::setrenderer(SDL_Renderer* r) {
   renderer=r;
 }
 
-void uisystem::setmouse(int* x, int* y) {
+void uisystem::setmouse(int* x, int* y, unsigned int* b, unsigned int* bold) {
   mx=x;
   my=y;
+  mb=b;
+  mbold=bold;
 }
 
-void uisystem::addbutton(int xpos, int ypos, int width, int height, string btext, string bhint, SDL_Color bcolor, SDL_Color bbordercolor) {
+void uisystem::addbutton(int xpos, int ypos, int width, int height, string btext, string bhint, SDL_Color bcolor, SDL_Color bbordercolor, void(* function)()) {
   buttons.resize(buttons.size()+1);
   buttons[buttons.size()-1].coords.x=xpos;
   buttons[buttons.size()-1].coords.y=ypos;
@@ -70,6 +75,7 @@ void uisystem::addbutton(int xpos, int ypos, int width, int height, string btext
   buttons[buttons.size()-1].bordercolor.a=bbordercolor.a;
   buttons[buttons.size()-1].text=btext;
   buttons[buttons.size()-1].hint=bhint;
+  buttons[buttons.size()-1].function=function;
 }
 
 void uisystem::setfont(font* fontset) {
