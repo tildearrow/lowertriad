@@ -74,16 +74,14 @@ int main() {
   ui->setfont(mainFont);
   ui->addbutton(0,0,48,22,"Prepare","Prepare CMake project",color,color,doNothing);
   ui->addbutton(48,0,40,22,"Build","Build game",color,color,doNothing);
-  ui->addbutton(88,0,32,22,"Run","Run compiled game",color,color,doNothing);
-  ui->addbutton(120,0,56,22,"Package","Create package",color,color,doNothing);
+  ui->addbutton(100,0,32,22,"Run","Run compiled game",color,color,doNothing);
+  ui->addbutton(132,0,56,22,"Package","Create package",color,color,doNothing);
   
-  ui->addbutton(200,0,50,22,"Sprites","",color,color,doNothing);
-  ui->addbutton(250,0,50,22,"Tiles","",color,color,doNothing);
-  ui->addbutton(300,0,50,22,"Backgrounds","",color,color,doNothing);
-  ui->addbutton(350,0,50,22,"Audio","",color,color,doNothing);
-  ui->addbutton(400,0,50,22,"Objects","",color,color,doNothing);
-  ui->addbutton(450,0,50,22,"Scenes","",color,color,doNothing);
-  ui->addbutton(500,0,50,22,"Functions","",color,color,doNothing);
+  ui->addbutton(200,0,64,22,"Graphics","",color,color,doNothing);
+  ui->addbutton(264,0,50,22,"Audio","",color,color,doNothing);
+  ui->addbutton(314,0,54,22,"Objects","",color,color,doNothing);
+  ui->addbutton(368,0,50,22,"Scenes","",color,color,doNothing);
+  ui->addbutton(418,0,72,22,"Functions","",color,color,doNothing);
   
   ui->setmouse(&mouseX,&mouseY,&mouseB,&mouseBold);
   while (1) {
