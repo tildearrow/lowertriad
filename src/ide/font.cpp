@@ -24,6 +24,8 @@
 int font::load(const char* filename, int size) {
   f=TTF_OpenFont(filename, size);
   if (f==NULL) {return 0;} else {return 1;}
+  curfsize=64;
+  formatcache=new char[curfsize];
 }
 
 void font::setrenderer(SDL_Renderer* r) {
@@ -31,7 +33,23 @@ void font::setrenderer(SDL_Renderer* r) {
 }
 
 void font::drawf(int x, int y, SDL_Color col, int align, int valign, const char* format, ...) {
-  
+  int chars;
+  va_list va;
+  va_start(va,format);
+  while (1) {
+    chars=vsnprintf(formatcache,curfsize,format,va);
+    if (chars>curfsize) {
+      delete[] formatcache;
+      curfsize*=2;
+      formatcache=new char[curfsize];
+    } else {
+      break;
+    }
+  }
+  va_end(va);
+  string tempstring;
+  tempstring=formatcache;
+  draw(x,y,col,align,valign,1,tempstring);
 }
 
 void font::draw(int x, int y, SDL_Color col, int align, int valign, bool nocache, string text) {

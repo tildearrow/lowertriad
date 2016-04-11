@@ -30,7 +30,7 @@ class font {
   SDL_Texture* tempt;
   int* mx;
   int* my;
-  const char* formatcache;
+  char* formatcache;
   int curfsize;
   SDL_Rect tempr;
   public:
