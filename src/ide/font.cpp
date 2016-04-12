@@ -34,21 +34,15 @@ void font::setrenderer(SDL_Renderer* r) {
 
 void font::drawf(int x, int y, SDL_Color col, int align, int valign, const char* format, ...) {
   int chars;
+  chars=0;
   va_list va;
   va_start(va,format);
-  while (1) {
-    chars=vsnprintf(formatcache,curfsize,format,va);
-    if (chars>curfsize) {
-      delete[] formatcache;
-      curfsize*=2;
-      formatcache=new char[curfsize];
-    } else {
-      break;
-    }
-  }
+  char* fs;
+  vasprintf(&fs,format,va);
   va_end(va);
   string tempstring;
-  tempstring=formatcache;
+  tempstring=fs;
+  delete[] fs;
   draw(x,y,col,align,valign,1,tempstring);
 }
 
