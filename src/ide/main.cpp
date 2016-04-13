@@ -44,6 +44,7 @@ bool willquit;
 uisystem* ui;
 font* mainFont;
 int curview;
+int cureditid, curedittype;
 const char* viewname[6]={"Graphics","Audio","Entity Types","Scenes","Functions"};
 
 struct graphic {
@@ -108,7 +109,11 @@ void doNothing(){
 void drawscreen() {
   SDL_RenderDrawLine(mainRenderer,0,32,1024,32);
   SDL_RenderDrawLine(mainRenderer,256,32,256,600);
-  mainFont->drawf(128,40,color,1,1,"%s List",viewname[curview]);
+  SDL_RenderDrawLine(mainRenderer,0,53,256,53);
+  mainFont->drawf(128,41,color,1,1,"%s List",viewname[curview]);
+  for (int i=0; i<graphics.size(); i++) {
+    mainFont->draw(0,64+(i*20),color,0,0,false,graphics[i].name);
+  }
 }
 
 void goGraphicsView() {
@@ -129,6 +134,20 @@ void goScenesView() {
 
 void goFunctionsView() {
   curview=4;
+}
+
+void makeNewResource() {
+  printf("ok, will be done\n");
+  // make new resource
+  switch (curview) {
+    case 0:
+      int formersize=graphics.size();
+      graphics.resize(formersize+1);
+      graphics[formersize].id=formersize;
+      graphics[formersize].name="graphic";
+      graphics[formersize].name+=std::to_string(formersize);
+      break;
+  }
 }
 
 int main() {
@@ -165,8 +184,11 @@ int main() {
   ui->addbutton(314,0,80,22,"EntityTypes","",color,color,goETypesView);
   ui->addbutton(394,0,50,22,"Scenes","",color,color,goScenesView);
   ui->addbutton(444,0,72,22,"Functions","",color,color,goFunctionsView);
+  ui->addbutton(225,32,32,22,"Add","",color,color,makeNewResource);
   
   ui->setmouse(&mouseX,&mouseY,&mouseB,&mouseBold);
+  // initialize IDE variables
+  cureditid=-1; curedittype=0; curview=0;
   while (1) {
     // check events
     while (SDL_PollEvent(event)) {
