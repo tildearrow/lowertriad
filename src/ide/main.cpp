@@ -111,8 +111,22 @@ void drawscreen() {
   SDL_RenderDrawLine(mainRenderer,256,32,256,600);
   SDL_RenderDrawLine(mainRenderer,0,53,256,53);
   mainFont->drawf(128,41,color,1,1,"%s List",viewname[curview]);
-  for (int i=0; i<graphics.size(); i++) {
-    mainFont->draw(0,64+(i*20),color,0,0,false,graphics[i].name);
+  switch (curview) {
+    case 0:
+      for (int i=0; i<graphics.size(); i++) {
+        mainFont->draw(0,64+(i*20),color,0,0,false,graphics[i].name);
+      }
+      break;
+    case 1:
+      for (int i=0; i<sounds.size(); i++) {
+        mainFont->draw(0,64+(i*20),color,0,0,false,sounds[i].name);
+      }
+      break;
+    case 2:
+      for (int i=0; i<etypes.size(); i++) {
+        mainFont->draw(0,64+(i*20),color,0,0,false,etypes[i].name);
+      }
+      break;
   }
 }
 
@@ -139,13 +153,28 @@ void goFunctionsView() {
 void makeNewResource() {
   printf("ok, will be done\n");
   // make new resource
+  int formersize;
   switch (curview) {
     case 0:
-      int formersize=graphics.size();
+      formersize=graphics.size();
       graphics.resize(formersize+1);
       graphics[formersize].id=formersize;
       graphics[formersize].name="graphic";
       graphics[formersize].name+=std::to_string(formersize);
+      break;
+    case 1:
+      formersize=sounds.size();
+      sounds.resize(formersize+1);
+      sounds[formersize].id=formersize;
+      sounds[formersize].name="sound";
+      sounds[formersize].name+=std::to_string(formersize);
+      break;
+    case 2:
+      formersize=etypes.size();
+      etypes.resize(formersize+1);
+      etypes[formersize].id=formersize;
+      etypes[formersize].name="type";
+      etypes[formersize].name+=std::to_string(formersize);
       break;
   }
 }
