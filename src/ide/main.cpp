@@ -43,9 +43,92 @@ SDL_Color color;
 bool willquit;
 uisystem* ui;
 font* mainFont;
+int curview;
+const char* viewname[6]={"Graphics","Audio","Entity Types","Scenes","Functions"};
+
+struct graphic {
+  string name;
+  int id;
+  int width;
+  int height;
+  int originX, originY;
+  int subgraphics;
+  bool background;
+  unsigned char** data;
+  int colmode;
+  unsigned char** colmask;
+};
+
+struct audio {
+  string name;
+  int id;
+  int size;
+  float* data;
+  int finaltype;
+};
+
+struct etype {
+  string name;
+  int id;
+  int initialgraphic;
+  int initialsubgraphic;
+  int parent;
+  int category;
+  std::vector<string> eventcode;
+  string headercode;
+};
+
+struct viewport {
+  SDL_Rect view, port;
+  float viewangle, portangle;
+};
+
+struct scene {
+  string name;
+  int width;
+  int height;
+  bool freeze;
+  std::vector<viewport> viewports;
+};
+
+struct function {
+  string name;
+  string code;
+};
+
+std::vector<graphic> graphics;
+std::vector<audio> sounds;
+std::vector<etype> etypes;
+std::vector<scene> scenes;
 
 void doNothing(){
   printf("hello world!\n");
+}
+
+void drawscreen() {
+  SDL_RenderDrawLine(mainRenderer,0,32,1024,32);
+  SDL_RenderDrawLine(mainRenderer,256,32,256,600);
+  mainFont->drawf(128,40,color,1,1,"%s List",viewname[curview]);
+}
+
+void goGraphicsView() {
+  curview=0;
+}
+
+void goAudioView() {
+  curview=1;
+}
+
+void goETypesView() {
+  curview=2;
+}
+
+void goScenesView() {
+  curview=3;
+}
+
+void goFunctionsView() {
+  curview=4;
 }
 
 int main() {
@@ -77,11 +160,11 @@ int main() {
   ui->addbutton(100,0,32,22,"Run","Run compiled game",color,color,doNothing);
   ui->addbutton(132,0,56,22,"Package","Create package",color,color,doNothing);
   
-  ui->addbutton(200,0,64,22,"Graphics","",color,color,doNothing);
-  ui->addbutton(264,0,50,22,"Audio","",color,color,doNothing);
-  ui->addbutton(314,0,54,22,"Objects","",color,color,doNothing);
-  ui->addbutton(368,0,50,22,"Scenes","",color,color,doNothing);
-  ui->addbutton(418,0,72,22,"Functions","",color,color,doNothing);
+  ui->addbutton(200,0,64,22,"Graphics","",color,color,goGraphicsView);
+  ui->addbutton(264,0,50,22,"Audio","",color,color,goAudioView);
+  ui->addbutton(314,0,80,22,"EntityTypes","",color,color,goETypesView);
+  ui->addbutton(394,0,50,22,"Scenes","",color,color,goScenesView);
+  ui->addbutton(444,0,72,22,"Functions","",color,color,goFunctionsView);
   
   ui->setmouse(&mouseX,&mouseY,&mouseB,&mouseBold);
   while (1) {
@@ -96,6 +179,7 @@ int main() {
     mouseBold=mouseB;
     mouseB=SDL_GetMouseState(&mouseX, &mouseY);
     ui->drawall();
+    drawscreen();
     SDL_RenderPresent(mainRenderer);
     if (willquit) {
       break;
