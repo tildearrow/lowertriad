@@ -86,6 +86,7 @@ struct viewport {
 
 struct scene {
   string name;
+  int id;
   int width;
   int height;
   bool freeze;
@@ -94,6 +95,7 @@ struct scene {
 
 struct function {
   string name;
+  int id;
   string code;
 };
 
@@ -101,12 +103,13 @@ std::vector<graphic> graphics;
 std::vector<audio> sounds;
 std::vector<etype> etypes;
 std::vector<scene> scenes;
+std::vector<function> functions;
 
 void doNothing(){
   printf("hello world!\n");
 }
 
-void drawscreen() {
+void drawScreen() {
   SDL_RenderDrawLine(mainRenderer,0,32,1024,32);
   SDL_RenderDrawLine(mainRenderer,256,32,256,600);
   SDL_RenderDrawLine(mainRenderer,0,53,256,53);
@@ -114,7 +117,7 @@ void drawscreen() {
   switch (curview) {
     case 0:
       for (int i=0; i<graphics.size(); i++) {
-        mainFont->draw(0,64+(i*20),color,0,0,false,graphics[i].name);
+        mainFont->draw(0+((cureditid==i)?(16):(0)),64+(i*20),color,0,0,false,graphics[i].name);
       }
       break;
     case 1:
@@ -125,6 +128,16 @@ void drawscreen() {
     case 2:
       for (int i=0; i<etypes.size(); i++) {
         mainFont->draw(0,64+(i*20),color,0,0,false,etypes[i].name);
+      }
+      break;
+    case 3:
+      for (int i=0; i<scenes.size(); i++) {
+        mainFont->draw(0,64+(i*20),color,0,0,false,scenes[i].name);
+      }
+      break;
+    case 4:
+      for (int i=0; i<functions.size(); i++) {
+        mainFont->draw(0,64+(i*20),color,0,0,false,functions[i].name);
       }
       break;
   }
@@ -150,8 +163,15 @@ void goFunctionsView() {
   curview=4;
 }
 
+void handleMouse() {
+  if (mouseB&1) {
+    if (mouseX<256 && mouseY>64) {
+      cureditid=(mouseY-64)/20;
+    }
+  }
+}
+
 void makeNewResource() {
-  printf("ok, will be done\n");
   // make new resource
   int formersize;
   switch (curview) {
@@ -175,6 +195,20 @@ void makeNewResource() {
       etypes[formersize].id=formersize;
       etypes[formersize].name="type";
       etypes[formersize].name+=std::to_string(formersize);
+      break;
+    case 3:
+      formersize=scenes.size();
+      scenes.resize(formersize+1);
+      scenes[formersize].id=formersize;
+      scenes[formersize].name="scene";
+      scenes[formersize].name+=std::to_string(formersize);
+      break;
+    case 4:
+      formersize=functions.size();
+      functions.resize(formersize+1);
+      functions[formersize].id=formersize;
+      functions[formersize].name="func";
+      functions[formersize].name+=std::to_string(formersize);
       break;
   }
 }
@@ -229,8 +263,9 @@ int main() {
     SDL_RenderClear(mainRenderer);
     mouseBold=mouseB;
     mouseB=SDL_GetMouseState(&mouseX, &mouseY);
+    handleMouse();
     ui->drawall();
-    drawscreen();
+    drawScreen();
     SDL_RenderPresent(mainRenderer);
     if (willquit) {
       break;
