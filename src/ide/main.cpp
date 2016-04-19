@@ -266,11 +266,12 @@ int main() {
     }
     SDL_SetRenderDrawColor(mainRenderer,0,0,0,0);
     SDL_RenderClear(mainRenderer);
+    SDL_SetRenderDrawColor(mainRenderer,color[0].r,color[0].g,color[0].b,color[0].a);
     mouseBold=mouseB;
     mouseB=SDL_GetMouseState(&mouseX, &mouseY);
     handleMouse();
-    ui->drawall();
     drawScreen();
+    ui->drawall();
     SDL_RenderPresent(mainRenderer);
     if (willquit) {
       break;

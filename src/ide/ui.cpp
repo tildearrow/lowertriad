@@ -26,6 +26,8 @@ bool PIR(SDL_Rect r, int x, int y) {
 }
 
 void uisystem::drawall() {
+  unsigned char rr, gg, bb, aa;
+  SDL_GetRenderDrawColor(renderer, &rr, &gg, &bb, &aa);
   for (int i=0; i<buttons.size(); i++) {
     gf->draw(buttons[i].coords.x+buttons[i].coords.w/2, buttons[i].coords.y+buttons[i].coords.h/2, buttons[i].color, 1, 1, false, buttons[i].text);
     SDL_SetRenderDrawColor(renderer, buttons[i].color.r, buttons[i].color.g, buttons[i].color.b, buttons[i].color.a);
@@ -46,6 +48,7 @@ void uisystem::drawall() {
   for (int i=0; i<textfields.size(); i++) {
     
   }
+  SDL_SetRenderDrawColor(renderer, rr, gg, bb, aa);
 }
 
 void uisystem::setrenderer(SDL_Renderer* r) {
