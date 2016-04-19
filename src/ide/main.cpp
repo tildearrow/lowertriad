@@ -39,7 +39,7 @@ int mouseX;
 int mouseY;
 unsigned int mouseB;
 unsigned int mouseBold;
-SDL_Color color;
+SDL_Color color[16];
 bool willquit;
 uisystem* ui;
 font* mainFont;
@@ -113,31 +113,31 @@ void drawScreen() {
   SDL_RenderDrawLine(mainRenderer,0,32,1024,32);
   SDL_RenderDrawLine(mainRenderer,256,32,256,600);
   SDL_RenderDrawLine(mainRenderer,0,53,256,53);
-  mainFont->drawf(128,41,color,1,1,"%s List",viewname[curview]);
+  mainFont->drawf(128,41,color[0],1,1,"%s List",viewname[curview]);
   switch (curview) {
     case 0:
       for (int i=0; i<graphics.size(); i++) {
-        mainFont->draw(0+((cureditid==i)?(16):(0)),64+(i*20),color,0,0,false,graphics[i].name);
+        mainFont->draw(0,64+(i*20),((cureditid==i && curedittype==0)?(color[1]):(color[0])),0,0,false,graphics[i].name);
       }
       break;
     case 1:
       for (int i=0; i<sounds.size(); i++) {
-        mainFont->draw(0,64+(i*20),color,0,0,false,sounds[i].name);
+        mainFont->draw(0,64+(i*20),((cureditid==i && curedittype==1)?(color[1]):(color[0])),0,0,false,sounds[i].name);
       }
       break;
     case 2:
       for (int i=0; i<etypes.size(); i++) {
-        mainFont->draw(0,64+(i*20),color,0,0,false,etypes[i].name);
+        mainFont->draw(0,64+(i*20),((cureditid==i && curedittype==2)?(color[1]):(color[0])),0,0,false,etypes[i].name);
       }
       break;
     case 3:
       for (int i=0; i<scenes.size(); i++) {
-        mainFont->draw(0,64+(i*20),color,0,0,false,scenes[i].name);
+        mainFont->draw(0,64+(i*20),((cureditid==i && curedittype==3)?(color[1]):(color[0])),0,0,false,scenes[i].name);
       }
       break;
     case 4:
       for (int i=0; i<functions.size(); i++) {
-        mainFont->draw(0,64+(i*20),color,0,0,false,functions[i].name);
+        mainFont->draw(0,64+(i*20),((cureditid==i && curedittype==4)?(color[1]):(color[0])),0,0,false,functions[i].name);
       }
       break;
   }
@@ -167,6 +167,7 @@ void handleMouse() {
   if (mouseB&1) {
     if (mouseX<256 && mouseY>64) {
       cureditid=(mouseY-64)/20;
+      curedittype=curview;
     }
   }
 }
@@ -235,19 +236,23 @@ int main() {
     printf("can't load font, which means this application is going to crash now...\n");
   }
   ui->setrenderer(mainRenderer);
-  color.r=0; color.g=255; color.b=0; color.a=255;
+  color[0].r=192; color[0].g=192; color[0].b=192; color[0].a=255; // main
+  color[1].r=255; color[1].g=255; color[1].b=255; color[1].a=255; // alternate
+  color[2].r=0;   color[2].g=255; color[2].b=0;   color[2].a=255; // success
+  color[3].r=255; color[3].g=255; color[3].b=0;   color[3].a=255; // ongoing
+  color[4].r=255; color[4].g=0;   color[4].b=0;   color[4].a=255; // failure
   ui->setfont(mainFont);
-  ui->addbutton(0,0,48,22,"Prepare","Prepare CMake project",color,color,doNothing);
-  ui->addbutton(48,0,40,22,"Build","Build game",color,color,doNothing);
-  ui->addbutton(100,0,32,22,"Run","Run compiled game",color,color,doNothing);
-  ui->addbutton(132,0,56,22,"Package","Create package",color,color,doNothing);
+  ui->addbutton(0,0,48,22,"Prepare","Prepare CMake project",color[0],color[0],doNothing);
+  ui->addbutton(48,0,40,22,"Build","Build game",color[0],color[0],doNothing);
+  ui->addbutton(100,0,32,22,"Run","Run compiled game",color[0],color[0],doNothing);
+  ui->addbutton(132,0,56,22,"Package","Create package",color[0],color[0],doNothing);
   
-  ui->addbutton(200,0,64,22,"Graphics","",color,color,goGraphicsView);
-  ui->addbutton(264,0,50,22,"Audio","",color,color,goAudioView);
-  ui->addbutton(314,0,80,22,"EntityTypes","",color,color,goETypesView);
-  ui->addbutton(394,0,50,22,"Scenes","",color,color,goScenesView);
-  ui->addbutton(444,0,72,22,"Functions","",color,color,goFunctionsView);
-  ui->addbutton(225,32,32,22,"Add","",color,color,makeNewResource);
+  ui->addbutton(200,0,64,22,"Graphics","",color[0],color[0],goGraphicsView);
+  ui->addbutton(264,0,50,22,"Audio","Sound/Music",color[0],color[0],goAudioView);
+  ui->addbutton(314,0,80,22,"EntityTypes","",color[0],color[0],goETypesView);
+  ui->addbutton(394,0,50,22,"Scenes","",color[0],color[0],goScenesView);
+  ui->addbutton(444,0,72,22,"Functions","",color[0],color[0],goFunctionsView);
+  ui->addbutton(225,32,32,22,"Add","Add a new resource",color[0],color[0],makeNewResource);
   
   ui->setmouse(&mouseX,&mouseY,&mouseB,&mouseBold);
   // initialize IDE variables
