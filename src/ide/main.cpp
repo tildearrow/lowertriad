@@ -45,7 +45,7 @@ uisystem* ui;
 font* mainFont;
 int curview;
 int cureditid, curedittype;
-const char* viewname[6]={"Graphics","Audio","Entity Types","Scenes","Functions"};
+const char* viewname[9]={"Graphics","Audio","Entity Types","Scenes","Functions","ShouldNotAppear","ShouldNotAppear","ShouldNotAppear","ShouldNotAppear"};
 
 struct graphic {
   string name;
@@ -163,6 +163,22 @@ void goFunctionsView() {
   curview=4;
 }
 
+void goProjectView() {
+  curview=5;
+}
+
+void goSettingsView() {
+  curview=6;
+}
+
+void goHelpView() {
+  curview=7;
+}
+
+void goAboutView() {
+  curview=8;
+}
+
 void handleMouse() {
   if ((mouseB&1)>(mouseBold&1)) { // checks for mouse left pressed
     if (mouseX<256 && mouseY>64) {
@@ -252,6 +268,12 @@ int main() {
   ui->addbutton(314,0,80,22,"EntityTypes","",color[0],color[0],goETypesView);
   ui->addbutton(394,0,50,22,"Scenes","",color[0],color[0],goScenesView);
   ui->addbutton(444,0,72,22,"Functions","",color[0],color[0],goFunctionsView);
+  ui->addbutton(516,0,60,22,"Project","",color[0],color[0],goProjectView);
+  
+  ui->addbutton(1024-160,0,60,22,"Settings","",color[0],color[0],goSettingsView);
+  ui->addbutton(1024-100,0,50,22,"Help","",color[0],color[0],goHelpView);
+  ui->addbutton(1024-50,0,50,22,"About","",color[0],color[0],goAboutView);
+  
   ui->addbutton(225,32,32,22,"Add","Add a new resource",color[0],color[0],makeNewResource);
   
   ui->setmouse(&mouseX,&mouseY,&mouseB,&mouseBold);
