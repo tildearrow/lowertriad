@@ -111,35 +111,37 @@ void doNothing(){
 
 void drawScreen() {
   SDL_RenderDrawLine(mainRenderer,0,32,1024,32);
-  SDL_RenderDrawLine(mainRenderer,256,32,256,600);
-  SDL_RenderDrawLine(mainRenderer,0,53,256,53);
-  mainFont->drawf(128,41,color[0],1,1,"%s List",viewname[curview]);
-  switch (curview) {
-    case 0:
-      for (int i=0; i<graphics.size(); i++) {
-        mainFont->draw(0,64+(i*20),((cureditid==i && curedittype==0)?(color[1]):(color[0])),0,0,false,graphics[i].name);
-      }
-      break;
-    case 1:
-      for (int i=0; i<sounds.size(); i++) {
-        mainFont->draw(0,64+(i*20),((cureditid==i && curedittype==1)?(color[1]):(color[0])),0,0,false,sounds[i].name);
-      }
-      break;
-    case 2:
-      for (int i=0; i<etypes.size(); i++) {
-        mainFont->draw(0,64+(i*20),((cureditid==i && curedittype==2)?(color[1]):(color[0])),0,0,false,etypes[i].name);
-      }
-      break;
-    case 3:
-      for (int i=0; i<scenes.size(); i++) {
-        mainFont->draw(0,64+(i*20),((cureditid==i && curedittype==3)?(color[1]):(color[0])),0,0,false,scenes[i].name);
-      }
-      break;
-    case 4:
-      for (int i=0; i<functions.size(); i++) {
-        mainFont->draw(0,64+(i*20),((cureditid==i && curedittype==4)?(color[1]):(color[0])),0,0,false,functions[i].name);
-      }
-      break;
+  if (curview<5) {
+    SDL_RenderDrawLine(mainRenderer,256,32,256,600);
+    SDL_RenderDrawLine(mainRenderer,0,53,256,53);
+    mainFont->drawf(128,41,color[0],1,1,"%s List",viewname[curview]);
+    switch (curview) {
+      case 0:
+        for (int i=0; i<graphics.size(); i++) {
+          mainFont->draw(0,64+(i*20),((cureditid==i && curedittype==0)?(color[1]):(color[0])),0,0,false,graphics[i].name);
+        }
+        break;
+      case 1:
+        for (int i=0; i<sounds.size(); i++) {
+          mainFont->draw(0,64+(i*20),((cureditid==i && curedittype==1)?(color[1]):(color[0])),0,0,false,sounds[i].name);
+        }
+        break;
+      case 2:
+        for (int i=0; i<etypes.size(); i++) {
+          mainFont->draw(0,64+(i*20),((cureditid==i && curedittype==2)?(color[1]):(color[0])),0,0,false,etypes[i].name);
+        }
+        break;
+      case 3:
+        for (int i=0; i<scenes.size(); i++) {
+          mainFont->draw(0,64+(i*20),((cureditid==i && curedittype==3)?(color[1]):(color[0])),0,0,false,scenes[i].name);
+        }
+        break;
+      case 4:
+        for (int i=0; i<functions.size(); i++) {
+          mainFont->draw(0,64+(i*20),((cureditid==i && curedittype==4)?(color[1]):(color[0])),0,0,false, functions[i].name);
+        }
+        break;
+    }
   }
 }
 
