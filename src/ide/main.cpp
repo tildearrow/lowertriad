@@ -57,7 +57,7 @@ struct graphic {
   int originX, originY;
   int subgraphics;
   bool background;
-  unsigned char** data;
+  std::vector<unsigned char*> data;
   int colmode;
   unsigned char** colmask;
 };
@@ -190,6 +190,9 @@ void handleMouse() {
     if (mouseX<256 && mouseY>64) {
       cureditid=(mouseY-64)/20;
       curedittype=curview;
+      switch (curview) {
+        case 0: geditor->setdata(graphics[cureditid].data[0], graphics[cureditid].width, graphics[cureditid].height); break;
+      }
     }
   }
 }
@@ -204,6 +207,12 @@ void makeNewResource() {
       graphics[formersize].id=formersize;
       graphics[formersize].name="graphic";
       graphics[formersize].name+=std::to_string(formersize);
+      // create pre-defined graphic
+      graphics[formersize].subgraphics=1;
+      graphics[formersize].width=32;
+      graphics[formersize].height=32;
+      graphics[formersize].data.resize(1);
+      graphics[formersize].data[0]=new unsigned char[4096];
       break;
     case 1:
       formersize=sounds.size();
