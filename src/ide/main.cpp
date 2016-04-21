@@ -32,6 +32,7 @@
 #include "includes.h"
 #include "font.h"
 #include "ui.h"
+#include "gfxeditor.h"
 SDL_Window* mainWindow;
 SDL_Renderer* mainRenderer;
 SDL_Event* event;
@@ -42,6 +43,7 @@ unsigned int mouseBold;
 SDL_Color color[16];
 bool willquit;
 uisystem* ui;
+gfxeditor* geditor;
 font* mainFont;
 int curview;
 int cureditid, curedittype;
@@ -120,6 +122,8 @@ void drawScreen() {
         for (int i=0; i<graphics.size(); i++) {
           mainFont->draw(0,64+(i*20),((cureditid==i && curedittype==0)?(color[1]):(color[0])),0,0,false,graphics[i].name);
         }
+        // also draw graphic editor
+        geditor->draw();
         break;
       case 1:
         for (int i=0; i<sounds.size(); i++) {
@@ -279,6 +283,9 @@ int main() {
   ui->addbutton(225,32,32,22,"Add","Add a new resource",color[0],color[0],makeNewResource);
   
   ui->setmouse(&mouseX,&mouseY,&mouseB,&mouseBold);
+  // initialize graphic editor
+  geditor=new gfxeditor;
+  geditor->setfont(mainFont);
   // initialize IDE variables
   cureditid=-1; curedittype=0; curview=0;
   while (1) {
