@@ -188,10 +188,17 @@ void goAboutView() {
 void handleMouse() {
   if ((mouseB&1)>(mouseBold&1)) { // checks for mouse left pressed
     if (mouseX<256 && mouseY>64) {
-      cureditid=(mouseY-64)/20;
       curedittype=curview;
       switch (curview) {
-        case 0: geditor->setdata(graphics[cureditid].data[0], graphics[cureditid].width, graphics[cureditid].height); break;
+        case 0:
+	  cureditid=(mouseY-64)/20;
+	  if (cureditid>=graphics.size()) {
+	    cureditid=-1;
+	  }
+	  if (cureditid!=-1) {
+	    geditor->setdata(graphics[cureditid].data[0], graphics[cureditid].width, graphics[cureditid].height);
+	  }
+	  break;
       }
     }
   }
