@@ -38,6 +38,7 @@ SDL_Renderer* mainRenderer;
 SDL_Event* event;
 int mouseX;
 int mouseY;
+int dw, dh;
 unsigned int mouseB;
 unsigned int mouseBold;
 SDL_Color color[16];
@@ -112,9 +113,9 @@ void doNothing(){
 }
 
 void drawScreen() {
-  SDL_RenderDrawLine(mainRenderer,0,32,1024,32);
+  SDL_RenderDrawLine(mainRenderer,0,32,dw,32);
   if (curview<5) {
-    SDL_RenderDrawLine(mainRenderer,256,32,256,600);
+    SDL_RenderDrawLine(mainRenderer,256,32,256,dh);
     SDL_RenderDrawLine(mainRenderer,0,53,256,53);
     mainFont->drawf(128,41,color[0],1,1,"%s List",viewname[curview]);
     switch (curview) {
@@ -279,9 +280,10 @@ int main() {
   TTF_Init();
   ui=new uisystem;
   event=new SDL_Event;
+  dw=1024; dh=600;
   string title;
   title="LowerTriad";
-  mainWindow=SDL_CreateWindow(title.c_str(),0,0,1024,600,SDL_WINDOW_RESIZABLE);
+  mainWindow=SDL_CreateWindow(title.c_str(),0,0,dw,dh,SDL_WINDOW_RESIZABLE);
   if (!mainWindow) {
     printf("i'm sorry, but window can't be created: %s\n",SDL_GetError());
     return 1;
@@ -328,13 +330,27 @@ int main() {
   }
   geditor->offX=256;
   geditor->offY=32;
+  geditor->w=dw;
+  geditor->h=dh;
   // initialize IDE variables
   cureditid=-1; curedittype=0; curview=0;
   while (1) {
     // check events
     while (SDL_PollEvent(event)) {
-      if (event->type==SDL_QUIT) {
-        willquit=true;
+      switch (event->type) {
+	case SDL_QUIT:
+	  willquit=true;
+	  break;
+	case SDL_WINDOWEVENT:
+	  switch (event->window.event) {
+	    case SDL_WINDOWEVENT_RESIZED:
+	      dw=event->window.data1;
+	      dh=event->window.data2;
+	      geditor->w=dw;
+	      geditor->h=dh;
+	      break;
+	  }
+	  break;
       }
     }
     SDL_SetRenderDrawColor(mainRenderer,0,0,0,0);

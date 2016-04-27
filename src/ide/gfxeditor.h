@@ -12,7 +12,7 @@ class gfxeditor {
   font* gf;
   void drawcolorpicker();
   public:
-    int offX, offY;
+    int offX, offY, w, h;
     void draw();
     void mouse();
     void setfont(font* fontset);

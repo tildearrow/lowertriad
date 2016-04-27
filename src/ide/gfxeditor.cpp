@@ -2,7 +2,7 @@
 
 void gfxeditor::draw() {
   SDL_SetRenderDrawColor(r,color[0].r,color[0].g,color[0].b,color[0].a);
-  SDL_RenderDrawLine(r,offX,600-64,1024,600-64);
+  SDL_RenderDrawLine(r,offX,h-64,w,h-64);
   //gf->draw(offX, offY, {255,255,255,255}, 0, 0, 0, "OH YES!");
 }
 
