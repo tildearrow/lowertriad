@@ -322,6 +322,12 @@ int main() {
   // initialize graphic editor
   geditor=new gfxeditor;
   geditor->setfont(mainFont);
+  geditor->setrenderer(mainRenderer);
+  for (int i=0; i<16; i++) {
+    geditor->setcolor(i,color[i]);
+  }
+  geditor->offX=256;
+  geditor->offY=32;
   // initialize IDE variables
   cureditid=-1; curedittype=0; curview=0;
   while (1) {
