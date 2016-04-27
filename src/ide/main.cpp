@@ -189,14 +189,34 @@ void handleMouse() {
   if ((mouseB&1)>(mouseBold&1)) { // checks for mouse left pressed
     if (mouseX<256 && mouseY>64) {
       curedittype=curview;
+      cureditid=(mouseY-64)/20;
       switch (curview) {
         case 0:
-	  cureditid=(mouseY-64)/20;
 	  if (cureditid>=graphics.size()) {
 	    cureditid=-1;
 	  }
 	  if (cureditid!=-1) {
 	    geditor->setdata(graphics[cureditid].data[0], graphics[cureditid].width, graphics[cureditid].height);
+	  }
+	  break;
+	case 1:
+	  if (cureditid>=sounds.size()) {
+	    cureditid=-1;
+	  }
+	  break;
+	case 2:
+	  if (cureditid>=etypes.size()) {
+	    cureditid=-1;
+	  }
+	  break;
+	case 3:
+	  if (cureditid>=scenes.size()) {
+	    cureditid=-1;
+	  }
+	  break;
+	case 4:
+	  if (cureditid>=functions.size()) {
+	    cureditid=-1;
 	  }
 	  break;
       }
