@@ -187,6 +187,9 @@ void goAboutView() {
 }
 
 void handleMouse() {
+  switch (curview) {
+    case 0: geditor->mouse(); break;
+  }
   if ((mouseB&1)>(mouseBold&1)) { // checks for mouse left pressed
     if (mouseX<256 && mouseY>64) {
       curedittype=curview;
@@ -332,6 +335,8 @@ int main() {
   geditor->offY=32;
   geditor->w=dw;
   geditor->h=dh;
+  
+  geditor->setmouse(&mouseX,&mouseY,&mouseB,&mouseBold);
   // initialize IDE variables
   cureditid=-1; curedittype=0; curview=0;
   while (1) {
