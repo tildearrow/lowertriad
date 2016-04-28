@@ -98,9 +98,9 @@ void gfxeditor::draw() {
   }
 
   if (!fgorbg) {
-    SDL_SetRenderDrawColor(r,bg.r,bg.g,bg.b,255);
+    SDL_SetRenderDrawColor(r,bg.r,bg.g,bg.b,bg.a);
   } else {
-    SDL_SetRenderDrawColor(r,fg.r,fg.g,fg.b,255);
+    SDL_SetRenderDrawColor(r,fg.r,fg.g,fg.b,fg.a);
   }
   temprect.x=offX+294;
   temprect.y=h-46;
@@ -108,9 +108,9 @@ void gfxeditor::draw() {
   temprect.h=48;
   SDL_RenderFillRect(r,&temprect);
   if (fgorbg) {
-    SDL_SetRenderDrawColor(r,bg.r,bg.g,bg.b,255);
+    SDL_SetRenderDrawColor(r,bg.r,bg.g,bg.b,bg.a);
   } else {
-    SDL_SetRenderDrawColor(r,fg.r,fg.g,fg.b,255);
+    SDL_SetRenderDrawColor(r,fg.r,fg.g,fg.b,fg.a);
   }
   temprect.x=offX+288;
   temprect.y=h-52;
