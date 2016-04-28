@@ -6,6 +6,7 @@ class gfxeditor {
   int width;
   int height;
   int curtool;
+  bool fgorbg;
   SDL_Color bg, fg;
   SDL_Point temppoint;
   SDL_Rect temprect;
