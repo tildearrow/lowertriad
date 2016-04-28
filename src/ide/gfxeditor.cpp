@@ -82,8 +82,8 @@ void gfxeditor::draw() {
   temprect.x=offX+288+29;
   SDL_RenderDrawRect(r,&temprect);
   
-  gf->draw(offX+288+29+11,h-70,color[0],1,1,0,"B");
-  gf->draw(offX+288+11,h-70,color[0],1,1,0,"F");
+  gf->draw(offX+288+29+11,h-70,color[(fgorbg)?(2):(0)],1,1,0,"B");
+  gf->draw(offX+288+11,h-70,color[(fgorbg)?(0):(2)],1,1,0,"F");
   
   if (fgorbg) {
     SDL_RenderDrawPoint(r,offX+24+bg.r,h-76);
@@ -97,15 +97,23 @@ void gfxeditor::draw() {
     SDL_RenderDrawPoint(r,offX+24+fg.a,h-16);
   }
 
+  if (!fgorbg) {
+    SDL_SetRenderDrawColor(r,bg.r,bg.g,bg.b,255);
+  } else {
+    SDL_SetRenderDrawColor(r,fg.r,fg.g,fg.b,255);
+  }
+  temprect.x=offX+294;
+  temprect.y=h-46;
+  temprect.w=48;
+  temprect.h=48;
+  SDL_RenderFillRect(r,&temprect);
   if (fgorbg) {
     SDL_SetRenderDrawColor(r,bg.r,bg.g,bg.b,255);
   } else {
     SDL_SetRenderDrawColor(r,fg.r,fg.g,fg.b,255);
   }
   temprect.x=offX+288;
-  temprect.y=h-58;
-  temprect.w=54;
-  temprect.h=54;
+  temprect.y=h-52;
   SDL_RenderFillRect(r,&temprect);
   
   gf->drawf(offX+8,offY+8,color[0],0,0,"%d %d %d",*mX,*mY,*mB);
