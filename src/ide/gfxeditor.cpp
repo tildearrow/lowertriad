@@ -50,18 +50,24 @@ void gfxeditor::mouse() {
     if (SDL_PointInRect(&temppoint,&temprect)) {
       fgorbg=true;
     }
+  }
+  if (*mB&1 || *mB&4) {
+    temppoint.x=*mX;
+    temppoint.y=*mY;
     // painting
     temprect.x=offX+8;
     temprect.y=offY+8;
     temprect.w=width;
     temprect.h=height;
     if (SDL_PointInRect(&temppoint,&temprect)) {
+      SDL_Color putcolor;
+      putcolor=(*mB&4)?(bg):(fg);
       switch (curtool) {
         case 0:
-          data[0][0][((*mX-offX-8)+((*mY-offY-8)*width))*4]=fg.r;
-          data[0][0][(((*mX-offX-8)+((*mY-offY-8)*width))*4)+1]=fg.g;
-          data[0][0][(((*mX-offX-8)+((*mY-offY-8)*width))*4)+2]=fg.b;
-          data[0][0][(((*mX-offX-8)+((*mY-offY-8)*width))*4)+3]=fg.a;
+          data[0][0][((*mX-offX-8)+((*mY-offY-8)*width))*4]=putcolor.r;
+          data[0][0][(((*mX-offX-8)+((*mY-offY-8)*width))*4)+1]=putcolor.g;
+          data[0][0][(((*mX-offX-8)+((*mY-offY-8)*width))*4)+2]=putcolor.b;
+          data[0][0][(((*mX-offX-8)+((*mY-offY-8)*width))*4)+3]=putcolor.a;
           break;
       }
       SDL_UpdateTexture(datadraw,NULL,data[0][0],width*4);
