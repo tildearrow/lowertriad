@@ -112,6 +112,33 @@ void doNothing(){
   printf("hello world!\n");
 }
 
+void drawAboutScreen() {
+  mainFont->draw(dw/2,64,color[0],1,0,0,"LowerTriad");
+  
+  switch (vertype) {
+    case 0: // developer versions
+      mainFont->drawf(dw/2,80,color[0],1,0,"(dev%d)",devver);
+      break;
+    case 1:
+      mainFont->drawf(dw/2,80,color[0],1,0,"(alpha%d)",alphaver);
+      break;
+    case 2:
+      mainFont->drawf(dw/2,80,color[0],1,0,"(beta%d)",betaver);
+      break;
+    case 3:
+      mainFont->drawf(dw/2,80,color[0],1,0,"(v%d.%d.%d-rc%d)",relMajor,relMinor,relMinor2,relRC);
+      break;
+    case 4:
+      mainFont->drawf(dw/2,80,color[0],1,0,"(v%d.%d.%d)",relMajor,relMinor,relMinor2);
+      break;
+    case 5:
+      mainFont->drawf(dw/2,80,color[0],1,0,"(git %s)",GIT_COMMIT);
+      break;
+    default:
+      mainFont->drawf(dw/2,80,color[0],1,0,"(unknown version)");
+  }
+}
+
 void drawScreen() {
   SDL_RenderDrawLine(mainRenderer,0,32,dw,32);
   if (curview<5) {
@@ -146,6 +173,13 @@ void drawScreen() {
           mainFont->draw(0,64+(i*20),((cureditid==i && curedittype==4)?(color[1]):(color[0])),0,0,false, functions[i].name);
         }
         break;
+    }
+  } else {
+    // the other set of screens
+    switch (curview) {
+      case 8:
+	drawAboutScreen();
+	break;
     }
   }
 }

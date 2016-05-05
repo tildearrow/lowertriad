@@ -28,4 +28,23 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 typedef std::string string;
+
+// NOTE: when making a release, change this value to:
+// - 0: development version (devX)
+// - 1: alpha version (alphaX)
+// - 2: beta version (betaX)
+// - 3: release candidate (vX.Y.Z-rcN)
+// - 4: final release (vX.Y.Z)
+// - 5: git release (git X) (avoid use if releasing please)
+// - any other value results in (unknown)
+#define vertype 5
+
+#define devver 0
+#define alphaver 0
+#define betaver 0
+#define relMajor 0
+#define relMinor 0
+#define relMinor2 0
+#define relRC 0
+
 #endif
