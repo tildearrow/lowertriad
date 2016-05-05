@@ -64,13 +64,7 @@ void gfxeditor::mouse() {
           data[0][0][(((*mX-offX-8)+((*mY-offY-8)*width))*4)+3]=fg.a;
           break;
       }
-      temprect.x=0; temprect.y=0; temprect.w=width; temprect.h=height;
-      unsigned char** lpptr;
-      int pitch=0;
-      SDL_LockTexture(datadraw, NULL, (void**)lpptr, &pitch);
-      printf("pitch of %d\n",pitch);
-      memcpy((void*)lpptr[0],(data[0][0]),width*height*4);
-      SDL_UnlockTexture(datadraw);
+      SDL_UpdateTexture(datadraw,NULL,data[0][0],width*4);
     }
   }
 }
@@ -157,7 +151,7 @@ void gfxeditor::setdata(std::vector<unsigned char*>* thedata, int thewidth, int 
   width=thewidth;
   height=theheight;
   SDL_DestroyTexture(datadraw);
-  datadraw=SDL_CreateTexture(r, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, width, height);
+  datadraw=SDL_CreateTexture(r, SDL_PIXELFORMAT_ABGR8888, SDL_TEXTUREACCESS_STREAMING, width, height);
   temprect.x=0; temprect.y=0; temprect.w=width; temprect.h=height;
   unsigned char** lpptr;
   int pitch=0;
@@ -188,6 +182,5 @@ gfxeditor::gfxeditor() {
   fg.r=255; fg.g=255; fg.b=255; fg.a=255;
   curtool=0;
   fgorbg=0; // 0 is fg, 1 is bg
-  datadraw=SDL_CreateTexture(r, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, 32, 32);
   width=0; height=0; data=NULL;
 }
