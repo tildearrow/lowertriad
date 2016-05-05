@@ -117,14 +117,32 @@ void gfxeditor::draw() {
   SDL_RenderFillRect(r,&temprect);
   
   gf->drawf(offX+8,offY+8,color[0],0,0,"%d %d %d",*mX,*mY,*mB);
+  
+  // draw the image
+  temprect.x=offX+8;
+  temprect.y=offY+8;
+  temprect.w=width;
+  temprect.h=height;
+  SDL_RenderCopy(r, datadraw, NULL, &temprect);
 }
 
 void gfxeditor::drawcolorpicker() {
   
 }
 
-void gfxeditor::setdata(unsigned char* data, int width, int height) {
-  
+void gfxeditor::setdata(std::vector<unsigned char*>* thedata, int thewidth, int theheight) {
+  data=thedata;
+  width=thewidth;
+  height=theheight;
+  SDL_DestroyTexture(datadraw);
+  datadraw=SDL_CreateTexture(r, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, width, height);
+  temprect.x=0; temprect.y=0; temprect.w=width; temprect.h=height;
+  unsigned char** lpptr;
+  int pitch=0;
+  SDL_LockTexture(datadraw, &temprect, (void**)lpptr, &pitch);
+  printf("pitch of %d\n",pitch);
+  memcpy((void*)lpptr[0],(data[0][0]),width*height*4);
+  SDL_UnlockTexture(datadraw);
 }
 
 void gfxeditor::setfont(font* fontset) {
@@ -147,4 +165,6 @@ gfxeditor::gfxeditor() {
   bg.r=0; bg.g=0; bg.b=0; bg.a=255;
   fg.r=255; fg.g=255; fg.b=255; fg.a=255;
   fgorbg=0; // 0 is fg, 1 is bg
+  datadraw=SDL_CreateTexture(r, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, 32, 32);
+  width=0; height=0; data=NULL;
 }

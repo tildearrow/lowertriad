@@ -2,7 +2,8 @@
 #include "font.h"
 
 class gfxeditor {
-  unsigned char* data;
+  std::vector<unsigned char*>* data;
+  SDL_Texture* datadraw;
   int width;
   int height;
   int curtool;
@@ -24,7 +25,7 @@ class gfxeditor {
     void mouse();
     void setfont(font* fontset);
     void setrenderer(SDL_Renderer* renderer);
-    void setdata(unsigned char* data, int width, int height);
+    void setdata(std::vector<unsigned char*>* thedata, int thewidth, int theheight);
     void setmouse(int* x, int* y, unsigned int* b, unsigned int* bold);
     void setcolor(int colindex, SDL_Color colcol);
     gfxeditor();

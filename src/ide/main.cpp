@@ -200,7 +200,7 @@ void handleMouse() {
 	    cureditid=-1;
 	  }
 	  if (cureditid!=-1) {
-	    geditor->setdata(graphics[cureditid].data[0], graphics[cureditid].width, graphics[cureditid].height);
+	    geditor->setdata(&graphics[cureditid].data, graphics[cureditid].width, graphics[cureditid].height);
 	  }
 	  break;
 	case 1:
@@ -244,6 +244,10 @@ void makeNewResource() {
       graphics[formersize].height=32;
       graphics[formersize].data.resize(1);
       graphics[formersize].data[0]=new unsigned char[4096];
+      // fill with zero
+      for (int i=0; i<4096; i++) {
+        graphics[formersize].data[0][i]=0;
+      }
       break;
     case 1:
       formersize=sounds.size();
