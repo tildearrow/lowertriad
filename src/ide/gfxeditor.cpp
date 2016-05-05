@@ -50,6 +50,28 @@ void gfxeditor::mouse() {
     if (SDL_PointInRect(&temppoint,&temprect)) {
       fgorbg=true;
     }
+    // painting
+    temprect.x=offX+8;
+    temprect.y=offY+8;
+    temprect.w=width;
+    temprect.h=height;
+    if (SDL_PointInRect(&temppoint,&temprect)) {
+      switch (curtool) {
+        case 0:
+          data[0][0][((*mX-offX-8)+((*mY-offY-8)*width))*4]=fg.r;
+          data[0][0][(((*mX-offX-8)+((*mY-offY-8)*width))*4)+1]=fg.g;
+          data[0][0][(((*mX-offX-8)+((*mY-offY-8)*width))*4)+2]=fg.b;
+          data[0][0][(((*mX-offX-8)+((*mY-offY-8)*width))*4)+3]=fg.a;
+          break;
+      }
+      temprect.x=0; temprect.y=0; temprect.w=width; temprect.h=height;
+      unsigned char** lpptr;
+      int pitch=0;
+      SDL_LockTexture(datadraw, NULL, (void**)lpptr, &pitch);
+      printf("pitch of %d\n",pitch);
+      memcpy((void*)lpptr[0],(data[0][0]),width*height*4);
+      SDL_UnlockTexture(datadraw);
+    }
   }
 }
 
@@ -164,6 +186,7 @@ void gfxeditor::setmouse(int* x, int* y, unsigned int* b, unsigned int* bold) {
 gfxeditor::gfxeditor() {
   bg.r=0; bg.g=0; bg.b=0; bg.a=255;
   fg.r=255; fg.g=255; fg.b=255; fg.a=255;
+  curtool=0;
   fgorbg=0; // 0 is fg, 1 is bg
   datadraw=SDL_CreateTexture(r, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, 32, 32);
   width=0; height=0; data=NULL;
