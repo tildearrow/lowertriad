@@ -29,6 +29,9 @@
 #warning "really? please tell me if you are compiling on this OS"
 #endif
 
+#define CONTRIBUTORS 1
+const char* contributors[CONTRIBUTORS]={"tildearrow"};
+
 #include "includes.h"
 #include "font.h"
 #include "ui.h"
@@ -102,6 +105,12 @@ struct function {
   string code;
 };
 
+struct authoranim {
+  int current;
+  int posY;
+  bool goingdown;
+} aboutanim;
+
 std::vector<graphic> graphics;
 std::vector<audio> sounds;
 std::vector<etype> etypes;
@@ -136,6 +145,25 @@ void drawAboutScreen() {
       break;
     default:
       mainFont->drawf(dw/2,80,color[0],1,0,"(unknown version)");
+  }
+  
+  mainFont->drawf(dw/2,100,color[0],1,0,COPYRIGHT);
+  
+  // draw animation
+  mainFont->drawf(dw/2,aboutanim.posY,color[0],1,0,"%s",contributors[aboutanim.current]);
+  if (aboutanim.goingdown) {
+    aboutanim.posY+=4;
+    if (aboutanim.posY>(dh+8)) {
+      aboutanim.current++;
+      aboutanim.posY=dh+8;
+      aboutanim.current%=CONTRIBUTORS;
+      aboutanim.goingdown=false;
+    }
+  } else {
+    aboutanim.posY-=4;
+    if (aboutanim.posY<200) {
+      aboutanim.goingdown=true;
+    }
   }
 }
 
@@ -377,6 +405,10 @@ int main() {
   geditor->setmouse(&mouseX,&mouseY,&mouseB,&mouseBold);
   // initialize IDE variables
   cureditid=-1; curedittype=0; curview=0;
+  // initialize about animation
+  aboutanim.posY=dh+8;
+  aboutanim.current=0;
+  aboutanim.goingdown=false;
   while (1) {
     // check events
     while (SDL_PollEvent(event)) {

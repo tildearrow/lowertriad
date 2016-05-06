@@ -29,6 +29,8 @@
 #include <SDL2/SDL_ttf.h>
 typedef std::string string;
 
+#define COPYRIGHT "Copyright (c) 2016 tildearrow (and contributors)"
+
 // NOTE: when making a release, change this value to:
 // - 0: development version (devX)
 // - 1: alpha version (alphaX)
