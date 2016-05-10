@@ -28,6 +28,6 @@ execute_process(COMMAND bash -c "git log | head -1 | sed 's/commit //' | sed -r 
 add_definitions("-DGIT_COMMIT=${GITCOMMIT}")
 add_executable(lowertriad-make src/ide/make.cpp)
 add_executable(lowertriad-test src/engine/engine.cpp)
-add_executable(lowertriad-ide src/ide/ui.cpp src/ide/gfxeditor.cpp src/ide/main.cpp src/ide/font.cpp)
+add_executable(lowertriad-ide src/ide/ui.cpp src/ide/gfxeditor.cpp src/ide/eteditor.cpp src/ide/main.cpp src/ide/font.cpp)
 target_link_libraries(lowertriad-ide SDL2 SDL2_ttf)
 target_compile_features(lowertriad-ide PRIVATE cxx_range_for)

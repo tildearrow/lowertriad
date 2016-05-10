@@ -36,6 +36,7 @@ const char* contributors[CONTRIBUTORS]={"tildearrow"};
 #include "font.h"
 #include "ui.h"
 #include "gfxeditor.h"
+#include "eteditor.h"
 #include "resource.h"
 SDL_Window* mainWindow;
 SDL_Renderer* mainRenderer;
