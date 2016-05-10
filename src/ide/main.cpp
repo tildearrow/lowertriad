@@ -36,6 +36,7 @@ const char* contributors[CONTRIBUTORS]={"tildearrow"};
 #include "font.h"
 #include "ui.h"
 #include "gfxeditor.h"
+#include "resource.h"
 SDL_Window* mainWindow;
 SDL_Renderer* mainRenderer;
 SDL_Event* event;
@@ -52,58 +53,6 @@ font* mainFont;
 int curview;
 int cureditid, curedittype;
 const char* viewname[9]={"Graphics","Audio","Entity Types","Scenes","Functions","ShouldNotAppear","ShouldNotAppear","ShouldNotAppear","ShouldNotAppear"};
-
-struct graphic {
-  string name;
-  int id;
-  int width;
-  int height;
-  int originX, originY;
-  int subgraphics;
-  bool background;
-  std::vector<unsigned char*> data;
-  int colmode;
-  unsigned char** colmask;
-};
-
-struct audio {
-  string name;
-  int id;
-  int size;
-  float* data;
-  int finaltype;
-};
-
-struct etype {
-  string name;
-  int id;
-  int initialgraphic;
-  int initialsubgraphic;
-  int parent;
-  int category;
-  std::vector<string> eventcode;
-  string headercode;
-};
-
-struct viewport {
-  SDL_Rect view, port;
-  float viewangle, portangle;
-};
-
-struct scene {
-  string name;
-  int id;
-  int width;
-  int height;
-  bool freeze;
-  std::vector<viewport> viewports;
-};
-
-struct function {
-  string name;
-  int id;
-  string code;
-};
 
 struct authoranim {
   int current;
