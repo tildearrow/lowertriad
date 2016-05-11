@@ -32,7 +32,7 @@ this gives a total of ~16 million possible events in a type.
 events that correspond to actions that happen to an entity.
 
  ID       | Type               | Description                                   | Data
-----------|-------------------------------------------------------------------------------------
+----------|--------------------|-----------------------------------------------|----------------
 0x00000000| null event         | is never raised.                              | none
 0x00000001| pre-creation event | entity is created. put into constructor code. | none
 0x00000002| creation event     | entity is created. it happens once.           | none
@@ -44,7 +44,7 @@ events that correspond to actions that happen to an entity.
 events that happen during a frame.
 
  ID       | Type               | Description                                      | Data
-----------|----------------------------------------------------------------------------------------
+----------|--------------------|--------------------------------------------------|----------------
 0x01000000| null frame event   | is never raised.                                 | none
 0x01000001| pre-frame event    | executed every frame at the beginning of update. | none
 0x01000002| frame event        | executed every frame during update.              | none
@@ -55,7 +55,7 @@ events that happen during a frame.
 events that happen during a collision.
 
  ID       | Type                     | Description                                                      | Data
-----------|----------------------------------------------------------------------------------------------------------------
+----------|--------------------------|------------------------------------------------------------------|------------------
 0x01yxxxxx| etype collision event    | when this entity collides with any etype entity. y can't be 0xe. | `int collider`
 0x01exxxxx| group collision event    | when this entity collides with any entity of a specific group.   | `int etype`, `int collider`
 0x01fffff0| global collision event   | when this entity collides with any entity.                       | none
