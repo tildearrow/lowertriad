@@ -2,6 +2,11 @@
 
 #ifndef RESOURCE_H
 #define RESOURCE_H
+struct ecode {
+  int eventtype;
+  string eventcode;
+};
+
 struct etype {
   string name;
   int id;
@@ -9,7 +14,7 @@ struct etype {
   int initialsubgraphic;
   int parent;
   int category;
-  std::vector<string> eventcode;
+  std::vector<ecode> eventcode;
   string headercode;
 };
 
