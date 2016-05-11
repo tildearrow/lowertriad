@@ -70,7 +70,7 @@ events that happen during a collision.
 events that happen after a timer.
 
  ID       | Type          | Description                                      | Data
-----------|----------------------------------------------------------------------------------------
+----------|---------------|--------------------------------------------------|---------------------
 0x03xxxxxx| timer event   | happens when a timer reaches zero.               | none
 
 #### Render event
