@@ -13,5 +13,9 @@ void eteditor::setrenderer(SDL_Renderer* renderer) {
 }
 
 void eteditor::draw() {
-  f->draw(256,256,{255,255,255,255},0,0,0,"oh yes!");
+  f->drawf(256,256,{255,255,255,255},0,0,"%d",(entitytype==NULL));
+}
+
+eteditor::eteditor() {
+  entitytype=NULL;
 }

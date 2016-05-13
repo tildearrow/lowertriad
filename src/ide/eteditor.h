@@ -11,4 +11,5 @@ class eteditor {
     void setfont(font* fontset);
     void setrenderer(SDL_Renderer* renderer);
     void draw();
+    eteditor();
 };
