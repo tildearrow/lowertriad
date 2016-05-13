@@ -227,6 +227,11 @@ void handleMouse() {
 	  if (cureditid>=etypes.size()) {
 	    cureditid=-1;
 	  }
+	  if (cureditid!=-1) {
+	    eeditor->setetype(&etypes[cureditid]);
+	  } else {
+	    eeditor->setetype(NULL);
+	  }
 	  break;
 	case 3:
 	  if (cureditid>=scenes.size()) {
