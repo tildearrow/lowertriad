@@ -50,6 +50,7 @@ SDL_Color color[16];
 bool willquit;
 uisystem* ui;
 gfxeditor* geditor;
+eteditor* eeditor;
 font* mainFont;
 int curview;
 int cureditid, curedittype;
@@ -140,6 +141,8 @@ void drawScreen() {
         for (int i=0; i<etypes.size(); i++) {
           mainFont->draw(0,64+(i*20),((cureditid==i && curedittype==2)?(color[1]):(color[0])),0,0,false,etypes[i].name);
         }
+        // also draw entity type editor
+        eeditor->draw();
         break;
       case 3:
         for (int i=0; i<scenes.size(); i++) {
@@ -353,6 +356,10 @@ int main() {
   geditor->h=dh;
   
   geditor->setmouse(&mouseX,&mouseY,&mouseB,&mouseBold);
+  // initialize entity editor
+  eeditor=new eteditor;
+  eeditor->setfont(mainFont);
+  eeditor->setrenderer(mainRenderer);
   // initialize IDE variables
   cureditid=-1; curedittype=0; curview=0;
   // initialize about animation
