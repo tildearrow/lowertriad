@@ -352,9 +352,6 @@ int main() {
   geditor=new gfxeditor;
   geditor->setfont(mainFont);
   geditor->setrenderer(mainRenderer);
-  for (int i=0; i<16; i++) {
-    geditor->setcolor(i,color[i]);
-  }
   geditor->offX=256;
   geditor->offY=32;
   geditor->w=dw;
@@ -365,6 +362,15 @@ int main() {
   eeditor=new eteditor;
   eeditor->setfont(mainFont);
   eeditor->setrenderer(mainRenderer);
+  eeditor->offX=256;
+  eeditor->offY=32;
+  eeditor->w=dw;
+  eeditor->h=dh;
+  // initialize colors
+  for (int i=0; i<16; i++) {
+    geditor->setcolor(i,color[i]);
+    eeditor->setcolor(i,color[i]);
+  }
   // initialize IDE variables
   cureditid=-1; curedittype=0; curview=0;
   // initialize about animation
@@ -385,6 +391,8 @@ int main() {
 	      dh=event->window.data2;
 	      geditor->w=dw;
 	      geditor->h=dh;
+        eeditor->w=dw;
+        eeditor->h=dh;
 	      break;
 	  }
 	  break;
