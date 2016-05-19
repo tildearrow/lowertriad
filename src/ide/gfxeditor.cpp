@@ -145,7 +145,10 @@ void gfxeditor::draw() {
   temprect.y=offY+8;
   temprect.w=width;
   temprect.h=height;
-  SDL_RenderCopy(r, datadraw, NULL, &temprect);
+  
+  if (datadraw!=NULL) {
+    SDL_RenderCopy(r, datadraw, NULL, &temprect);
+  }
 }
 
 void gfxeditor::drawcolorpicker() {
@@ -188,5 +191,5 @@ gfxeditor::gfxeditor() {
   fg.r=255; fg.g=255; fg.b=255; fg.a=255;
   curtool=0;
   fgorbg=0; // 0 is fg, 1 is bg
-  width=0; height=0; data=NULL;
+  width=0; height=0; data=NULL; datadraw=NULL;
 }
