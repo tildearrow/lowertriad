@@ -29,6 +29,10 @@ void eteditor::draw() {
   }
 }
 
+void eteditor::eventselector() {
+  
+}
+
 void eteditor::setcolor(int colindex, SDL_Color colcol) {
   color[colindex]=colcol;
 }
