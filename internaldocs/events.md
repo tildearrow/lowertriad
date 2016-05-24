@@ -56,14 +56,14 @@ events that happen during a collision.
 
  ID       | Type                     | Description                                                      | Data
 ----------|--------------------------|------------------------------------------------------------------|------------------
-0x01yxxxxx| etype collision event    | when this entity collides with any etype entity. y can't be 0xe. | `int collider`
-0x01exxxxx| group collision event    | when this entity collides with any entity of a specific group.   | `int etype`, `int collider`
-0x01fffff0| global collision event   | when this entity collides with any entity.                       | none
-0x01fffff1| boundary collision event | when this entity collides with the scene's boundaries.           | none
-0x01fffff2| out of scene event       | when this entity is outside the scene.                           | none
-0x01fffff3| viewport boundary event  | when this entity collides with a viewport's boundaries.          | `int vpid`
-0x01fffff4| out of viewport event    | when this entity is outside a viewport.                          | `int vpid`
-0x01ffffff| unknown collision event  | should not happen.                                               | none
+0x02yxxxxx| etype collision event    | when this entity collides with any etype entity. y can't be 0xe. | `int collider`
+0x02exxxxx| group collision event    | when this entity collides with any entity of a specific group.   | `int etype`, `int collider`
+0x02fffff0| global collision event   | when this entity collides with any entity.                       | none
+0x02fffff1| boundary collision event | when this entity collides with the scene's boundaries.           | none
+0x02fffff2| out of scene event       | when this entity is outside the scene.                           | none
+0x02fffff3| viewport boundary event  | when this entity collides with a viewport's boundaries.          | `int vpid`
+0x02fffff4| out of viewport event    | when this entity is outside a viewport.                          | `int vpid`
+0x02ffffff| unknown collision event  | should not happen.                                               | none
 
 #### Timer event
 
