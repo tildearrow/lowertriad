@@ -79,10 +79,10 @@ void eteditor::eventselector() {
   SDL_RenderDrawLine(r, offX, offY+20, w-256, offY+20);
   // event type buttons
   f->draw(offX+(int)(((float)w-512)*0.1),offY+20,color[((selectedevent>>24)==0x00)],1,0,0,"Entity");
-  f->draw(offX+(int)(((float)w-512)*0.3),offY+20,color[((selectedevent>>24)==0x00)],1,0,0,"Frame");
-  f->draw(offX+(int)(((float)w-512)*0.5),offY+20,color[((selectedevent>>24)==0x00)],1,0,0,"Collision");
-  f->draw(offX+(int)(((float)w-512)*0.7),offY+20,color[((selectedevent>>24)==0x00)],1,0,0,"Timer");
-  f->draw(offX+(int)(((float)w-512)*0.9),offY+20,color[((selectedevent>>24)==0x00)],1,0,0,"Render");
+  f->draw(offX+(int)(((float)w-512)*0.3),offY+20,color[((selectedevent>>24)==0x01)],1,0,0,"Frame");
+  f->draw(offX+(int)(((float)w-512)*0.5),offY+20,color[((selectedevent>>24)==0x02)],1,0,0,"Collision");
+  f->draw(offX+(int)(((float)w-512)*0.7),offY+20,color[((selectedevent>>24)==0x03)],1,0,0,"Timer");
+  f->draw(offX+(int)(((float)w-512)*0.9),offY+20,color[((selectedevent>>24)==0x0f)],1,0,0,"Render");
   f->draw(offX+(int)(((float)w-512)*0.1),offY+40,color[((selectedevent>>25)==0x1)],1,0,0,"Input");
   f->draw(offX+(int)(((float)w-512)*0.3),offY+40,color[((selectedevent>>24)==0x20)],1,0,0,"Scene");
   f->draw(offX+(int)(((float)w-512)*0.5),offY+40,color[((selectedevent>>24)==0x70)],1,0,0,"Game");
