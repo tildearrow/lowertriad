@@ -89,6 +89,15 @@ void eteditor::eventselector() {
   f->draw(offX+(int)(((float)w-512)*0.7),offY+40,color[((selectedevent>>24)==0x7e)],1,0,0,"Error");
   f->draw(offX+(int)(((float)w-512)*0.9),offY+40,color[((selectedevent>>24)==0x7f)],1,0,0,"User");
   SDL_RenderDrawLine(r, offX, offY+60, w-256, offY+60);
+  // event-type-respective UI
+  switch (selectedevent>>24) {
+    case 0:
+      f->draw(w/2,offY+100,color[(selectedevent&0xf)==1],1,1,0,"Pre-Creation");
+      f->draw(w/2,offY+160,color[(selectedevent&0xf)==2],1,1,0,"Creation");
+      f->draw(w/2,offY+220,color[(selectedevent&0xf)==3],1,1,0,"Destruction");
+      f->draw(w/2,offY+280,color[(selectedevent&0xf)==4],1,1,0,"Post-Destruction");
+      break;
+  }
 }
 
 void eteditor::codeeditor() {
