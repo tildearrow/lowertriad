@@ -59,7 +59,6 @@ void eteditor::codeeditor() {
   f->draw(offX,offY,color[0],1,0,0,"Code Editor");
 }
 
-
 void eteditor::setcolor(int colindex, SDL_Color colcol) {
   color[colindex]=colcol;
 }
