@@ -171,10 +171,10 @@ void eteditor::eventselector() {
         break;
       case 0x7e:
         SDL_RenderDrawLine(r, offX, offY+80, w-256, offY+80);
-        f->draw(offX+(int)(((float)w-512)*1/8),offY+60,color[((selectedevent>>20)<0x02e)],1,0,0,"Any Terminate");
-        f->draw(offX+(int)(((float)w-512)*3/8),offY+60,color[((selectedevent>>20)==0x02e)],1,0,0,"Any Crash");
-        f->draw(offX+(int)(((float)w-512)*5/8),offY+60,color[((selectedevent>>20)==0x02f)],1,0,0,"Any Signal");
-        f->draw(offX+(int)(((float)w-512)*7/8),offY+60,color[((selectedevent>>20)==0x02f)],1,0,0,"Specific Signal");
+        f->draw(offX+(int)(((float)w-512)*1/8),offY+60,color[(selectedevent==0x7e000000)],1,0,0,"Any Terminate");
+        f->draw(offX+(int)(((float)w-512)*3/8),offY+60,color[(selectedevent==0x7e000001)],1,0,0,"Any Crash");
+        f->draw(offX+(int)(((float)w-512)*5/8),offY+60,color[(selectedevent==0x7e000002)],1,0,0,"Any Signal");
+        f->draw(offX+(int)(((float)w-512)*7/8),offY+60,color[((selectedevent>>20)==0x7e1)],1,0,0,"Specific Signal");
         break;
     }
   }
