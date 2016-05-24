@@ -42,12 +42,23 @@ void eteditor::draw() {
     f->draw(w-214, offY+22, color[0], 1, 0, 0, "Add");
     f->draw(w-128, offY+22, color[0], 1, 0, 0, "Change");
     f->draw(w-43, offY+22, color[0], 1, 0, 0, "Remove");
+    
+    if (select) {
+      eventselector();
+    } else {
+      codeeditor();
+    }
   }
 }
 
 void eteditor::eventselector() {
-  
+  f->draw(offX,offY,color[0],1,0,0,"Event");
 }
+
+void eteditor::codeeditor() {
+  f->draw(offX,offY,color[0],1,0,0,"Code Editor");
+}
+
 
 void eteditor::setcolor(int colindex, SDL_Color colcol) {
   color[colindex]=colcol;
@@ -59,4 +70,5 @@ void eteditor::setmouse(int* x, int* y, unsigned int* b, unsigned int* bold) {
 
 eteditor::eteditor() {
   entitytype=NULL;
+  select=false;
 }

@@ -23,6 +23,7 @@ class eteditor {
     void setmouse(int* x, int* y, unsigned int* b, unsigned int* bold);
     void mouse();
     void eventselector();
+    void codeeditor();
     void draw();
     eteditor();
 };
