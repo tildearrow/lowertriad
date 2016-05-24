@@ -133,13 +133,13 @@ void eteditor::eventselector() {
       f->draw(w/2,offY+220,color[(selectedevent&0xf)==3],1,1,0,"Post-Frame");
       break;
     case 2:
-      SDL_RenderDrawLine(r, offX, offY+20, w-256, offY+20);
+      SDL_RenderDrawLine(r, offX, offY+80, w-256, offY+80);
       f->draw(offX+(int)(((float)w-512)*1/6),offY+60,color[((selectedevent>>20)<0x02e)],1,0,0,"-> Entity Type");
       f->draw(offX+(int)(((float)w-512)*3/6),offY+60,color[((selectedevent>>20)==0x02e)],1,0,0,"-> Entity Group");
       f->draw(offX+(int)(((float)w-512)*5/6),offY+60,color[((selectedevent>>20)==0x02f)],1,0,0,"-> Other");
       break;
     case 3:
-      SDL_RenderDrawLine(r, offX, offY+20, w-256, offY+20);
+      SDL_RenderDrawLine(r, offX, offY+80, w-256, offY+80);
       f->draw(offX+(int)(((float)w-512)*1/4),offY+60,color[((selectedevent>>20)<0x038)],1,0,0,"Entity");
       f->draw(offX+(int)(((float)w-512)*3/4),offY+60,color[((selectedevent>>20)>0x037)],1,0,0,"Global");
       break;
