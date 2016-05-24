@@ -7,6 +7,8 @@ class eteditor {
   bool select;
   font* f;
   SDL_Renderer* r;
+  SDL_Point temppoint;
+  SDL_Rect temprect;
   SDL_Color color[16];
   int* mX;
   int* mY;

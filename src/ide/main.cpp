@@ -204,6 +204,7 @@ void goAboutView() {
 void handleMouse() {
   switch (curview) {
     case 0: geditor->mouse(); break;
+    case 2: eeditor->mouse(); break;
   }
   if ((mouseB&1)>(mouseBold&1)) { // checks for mouse left pressed
     if (mouseX<256 && mouseY>64) {
@@ -366,6 +367,8 @@ int main() {
   eeditor->offY=32;
   eeditor->w=dw;
   eeditor->h=dh;
+  
+  eeditor->setmouse(&mouseX,&mouseY,&mouseB,&mouseBold);
   // initialize colors
   for (int i=0; i<16; i++) {
     geditor->setcolor(i,color[i]);

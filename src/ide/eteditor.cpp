@@ -12,6 +12,22 @@ void eteditor::setrenderer(SDL_Renderer* renderer) {
   r=renderer;
 }
 
+void eteditor::mouse() {
+  if (*mB&1) {
+    if (entitytype!=NULL) {
+      temppoint.x=*mX;
+      temppoint.y=*mY;
+      temprect.x=w-256;
+      temprect.y=offY+20;
+      temprect.w=85;
+      temprect.h=20;
+      if (SDL_PointInRect(&temppoint,&temprect)) {
+	select=true;
+      }
+    }
+  }
+}
+
 void eteditor::draw() {
   f->drawf(256,256,{255,255,255,255},0,0,"%d",(entitytype==NULL));
   if (entitytype!=NULL) {
