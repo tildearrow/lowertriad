@@ -120,54 +120,63 @@ void eteditor::eventselector() {
   f->draw(offX+(int)(((float)w-512)*0.9),offY+40,color[((selectedevent>>24)==0x7f)],1,0,0,"User");
   SDL_RenderDrawLine(r, offX, offY+60, w-256, offY+60);
   // event-type-respective UI
-  switch (selectedevent>>24) {
-    case 0:
-      f->draw(w/2,offY+100,color[(selectedevent&0xf)==1],1,1,0,"Pre-Creation");
-      f->draw(w/2,offY+160,color[(selectedevent&0xf)==2],1,1,0,"Creation");
-      f->draw(w/2,offY+220,color[(selectedevent&0xf)==3],1,1,0,"Destruction");
-      f->draw(w/2,offY+280,color[(selectedevent&0xf)==4],1,1,0,"Post-Destruction");
-      break;
-    case 1:
-      f->draw(w/2,offY+100,color[(selectedevent&0xf)==1],1,1,0,"Pre-Frame");
-      f->draw(w/2,offY+160,color[(selectedevent&0xf)==2],1,1,0,"Frame");
-      f->draw(w/2,offY+220,color[(selectedevent&0xf)==3],1,1,0,"Post-Frame");
-      break;
-    case 2:
-      SDL_RenderDrawLine(r, offX, offY+80, w-256, offY+80);
-      f->draw(offX+(int)(((float)w-512)*1/6),offY+60,color[((selectedevent>>20)<0x02e)],1,0,0,"-> Entity Type");
-      f->draw(offX+(int)(((float)w-512)*3/6),offY+60,color[((selectedevent>>20)==0x02e)],1,0,0,"-> Entity Group");
-      f->draw(offX+(int)(((float)w-512)*5/6),offY+60,color[((selectedevent>>20)==0x02f)],1,0,0,"-> Other");
-      break;
-    case 3:
-      SDL_RenderDrawLine(r, offX, offY+80, w-256, offY+80);
-      f->draw(offX+(int)(((float)w-512)*1/4),offY+60,color[((selectedevent>>20)<0x038)],1,0,0,"Entity");
-      f->draw(offX+(int)(((float)w-512)*3/4),offY+60,color[((selectedevent>>20)>0x037)],1,0,0,"Global");
-      break;
-    case 0x0f:
-      f->draw(w/2,offY+100,color[(selectedevent&0xf)==1],1,1,0,"Pre-Clear");
-      f->draw(w/2,offY+160,color[(selectedevent&0xf)==2],1,1,0,"Pre-Render");
-      f->draw(w/2,offY+220,color[(selectedevent&0xf)==3],1,1,0,"Render");
-      f->draw(w/2,offY+280,color[(selectedevent&0xf)==4],1,1,0,"Post-Render");
-      f->draw(w/2,offY+340,color[(selectedevent&0xf)==4],1,1,0,"Overlay");
-      f->draw(w/2,offY+400,color[(selectedevent&0xf)==4],1,1,0,"Post-Present");
-      break;
-    case 0x20:
-      f->draw(w/2,offY+100,color[(selectedevent&0xf)==1],1,1,0,"Load");
-      f->draw(w/2,offY+160,color[(selectedevent&0xf)==2],1,1,0,"Finish");
-      break;
-    case 0x70:
-      f->draw(w/2,offY+100,color[(selectedevent&0xf)==1],1,1,0,"Start");
-      f->draw(w/2,offY+160,color[(selectedevent&0xf)==2],1,1,0,"Exit");
-      f->draw(w/2,offY+220,color[(selectedevent&0xf)==3],1,1,0,"Restart");
-      f->draw(w/2,offY+280,color[(selectedevent&0xf)==4],1,1,0,"Close Button");
-      break;
-    case 0x7e:
-      SDL_RenderDrawLine(r, offX, offY+80, w-256, offY+80);
-      f->draw(offX+(int)(((float)w-512)*1/8),offY+60,color[((selectedevent>>20)<0x02e)],1,0,0,"Any Terminate");
-      f->draw(offX+(int)(((float)w-512)*3/8),offY+60,color[((selectedevent>>20)==0x02e)],1,0,0,"Any Crash");
-      f->draw(offX+(int)(((float)w-512)*5/8),offY+60,color[((selectedevent>>20)==0x02f)],1,0,0,"Any Signal");
-      f->draw(offX+(int)(((float)w-512)*7/8),offY+60,color[((selectedevent>>20)==0x02f)],1,0,0,"Specific Signal");
-      break;
+  if ((selectedevent>>28)==0x1) {
+    SDL_RenderDrawLine(r, offX, offY+80, w-256, offY+80);
+    f->draw(offX+(int)(((float)w-512)*1/10),offY+60,color[((selectedevent>>24)==0x10)],1,0,0,"Keyboard");
+    f->draw(offX+(int)(((float)w-512)*3/10),offY+60,color[((selectedevent>>24)==0x11)],1,0,0,"Mouse");
+    f->draw(offX+(int)(((float)w-512)*5/10),offY+60,color[((selectedevent>>24)==0x12)],1,0,0,"Joystick");
+    f->draw(offX+(int)(((float)w-512)*7/10),offY+60,color[((selectedevent>>24)==0x13)],1,0,0,"Touch");
+    f->draw(offX+(int)(((float)w-512)*9/10),offY+60,color[((selectedevent>>24)==0x1f)],1,0,0,"Other");
+  } else {
+    switch (selectedevent>>24) {
+      case 0:
+        f->draw(w/2,offY+100,color[(selectedevent&0xf)==1],1,1,0,"Pre-Creation");
+        f->draw(w/2,offY+160,color[(selectedevent&0xf)==2],1,1,0,"Creation");
+        f->draw(w/2,offY+220,color[(selectedevent&0xf)==3],1,1,0,"Destruction");
+        f->draw(w/2,offY+280,color[(selectedevent&0xf)==4],1,1,0,"Post-Destruction");
+        break;
+      case 1:
+        f->draw(w/2,offY+100,color[(selectedevent&0xf)==1],1,1,0,"Pre-Frame");
+        f->draw(w/2,offY+160,color[(selectedevent&0xf)==2],1,1,0,"Frame");
+        f->draw(w/2,offY+220,color[(selectedevent&0xf)==3],1,1,0,"Post-Frame");
+        break;
+      case 2:
+        SDL_RenderDrawLine(r, offX, offY+80, w-256, offY+80);
+        f->draw(offX+(int)(((float)w-512)*1/6),offY+60,color[((selectedevent>>20)<0x02e)],1,0,0,"-> Entity Type");
+        f->draw(offX+(int)(((float)w-512)*3/6),offY+60,color[((selectedevent>>20)==0x02e)],1,0,0,"-> Entity Group");
+        f->draw(offX+(int)(((float)w-512)*5/6),offY+60,color[((selectedevent>>20)==0x02f)],1,0,0,"-> Other");
+        break;
+      case 3:
+        SDL_RenderDrawLine(r, offX, offY+80, w-256, offY+80);
+        f->draw(offX+(int)(((float)w-512)*1/4),offY+60,color[((selectedevent>>20)<0x038)],1,0,0,"Entity");
+        f->draw(offX+(int)(((float)w-512)*3/4),offY+60,color[((selectedevent>>20)>0x037)],1,0,0,"Global");
+        break;
+      case 0x0f:
+        f->draw(w/2,offY+100,color[(selectedevent&0xf)==1],1,1,0,"Pre-Clear");
+        f->draw(w/2,offY+160,color[(selectedevent&0xf)==2],1,1,0,"Pre-Render");
+        f->draw(w/2,offY+220,color[(selectedevent&0xf)==3],1,1,0,"Render");
+        f->draw(w/2,offY+280,color[(selectedevent&0xf)==4],1,1,0,"Post-Render");
+        f->draw(w/2,offY+340,color[(selectedevent&0xf)==4],1,1,0,"Overlay");
+        f->draw(w/2,offY+400,color[(selectedevent&0xf)==4],1,1,0,"Post-Present");
+        break;
+      case 0x20:
+        f->draw(w/2,offY+100,color[(selectedevent&0xf)==1],1,1,0,"Load");
+        f->draw(w/2,offY+160,color[(selectedevent&0xf)==2],1,1,0,"Finish");
+        break;
+      case 0x70:
+        f->draw(w/2,offY+100,color[(selectedevent&0xf)==1],1,1,0,"Start");
+        f->draw(w/2,offY+160,color[(selectedevent&0xf)==2],1,1,0,"Exit");
+        f->draw(w/2,offY+220,color[(selectedevent&0xf)==3],1,1,0,"Restart");
+        f->draw(w/2,offY+280,color[(selectedevent&0xf)==4],1,1,0,"Close Button");
+        break;
+      case 0x7e:
+        SDL_RenderDrawLine(r, offX, offY+80, w-256, offY+80);
+        f->draw(offX+(int)(((float)w-512)*1/8),offY+60,color[((selectedevent>>20)<0x02e)],1,0,0,"Any Terminate");
+        f->draw(offX+(int)(((float)w-512)*3/8),offY+60,color[((selectedevent>>20)==0x02e)],1,0,0,"Any Crash");
+        f->draw(offX+(int)(((float)w-512)*5/8),offY+60,color[((selectedevent>>20)==0x02f)],1,0,0,"Any Signal");
+        f->draw(offX+(int)(((float)w-512)*7/8),offY+60,color[((selectedevent>>20)==0x02f)],1,0,0,"Specific Signal");
+        break;
+    }
   }
   // event ID
   SDL_RenderDrawLine(r, offX, h-20, w-256, h-20);
