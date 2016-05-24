@@ -21,7 +21,6 @@ this gives a total of ~16 million possible events in a type.
 0x13| touch input event
 0x1f| other input event
 0x20| scene event
-0x21| global timer event
 0x70| game event
 0x7e| error event
 0x7f| user event
@@ -70,9 +69,10 @@ events that happen during a collision.
 
 events that happen after a timer.
 
- ID       | Type          | Description                                      | Data
-----------|---------------|--------------------------------------------------|---------------------
-0x03xxxxxx| timer event   | happens when a timer reaches zero.               | none
+ ID       | Type                 | Description                                      | Data
+----------|----------------------|--------------------------------------------------|---------------------
+0x03yxxxxx| timer event          | happens when a timer reaches zero.               | none
+0x03zxxxxx| global timer event   | happens when a global timer reaches zero.        | none
 
 #### Render event
 
