@@ -143,7 +143,41 @@ void eteditor::eventselector() {
       f->draw(offX+(int)(((float)w-512)*1/4),offY+60,color[((selectedevent>>20)<0x038)],1,0,0,"Entity");
       f->draw(offX+(int)(((float)w-512)*3/4),offY+60,color[((selectedevent>>20)>0x037)],1,0,0,"Global");
       break;
+    case 0x0f:
+      f->draw(w/2,offY+100,color[(selectedevent&0xf)==1],1,1,0,"Pre-Clear");
+      f->draw(w/2,offY+160,color[(selectedevent&0xf)==2],1,1,0,"Pre-Render");
+      f->draw(w/2,offY+220,color[(selectedevent&0xf)==3],1,1,0,"Render");
+      f->draw(w/2,offY+280,color[(selectedevent&0xf)==4],1,1,0,"Post-Render");
+      f->draw(w/2,offY+340,color[(selectedevent&0xf)==4],1,1,0,"Overlay");
+      f->draw(w/2,offY+400,color[(selectedevent&0xf)==4],1,1,0,"Post-Present");
+      break;
+    case 0x20:
+      f->draw(w/2,offY+100,color[(selectedevent&0xf)==1],1,1,0,"Load");
+      f->draw(w/2,offY+160,color[(selectedevent&0xf)==2],1,1,0,"Finish");
+      break;
+    case 0x70:
+      f->draw(w/2,offY+100,color[(selectedevent&0xf)==1],1,1,0,"Start");
+      f->draw(w/2,offY+160,color[(selectedevent&0xf)==2],1,1,0,"Exit");
+      f->draw(w/2,offY+220,color[(selectedevent&0xf)==3],1,1,0,"Restart");
+      f->draw(w/2,offY+280,color[(selectedevent&0xf)==4],1,1,0,"Close Button");
+      break;
+    case 0x7e:
+      SDL_RenderDrawLine(r, offX, offY+80, w-256, offY+80);
+      f->draw(offX+(int)(((float)w-512)*1/8),offY+60,color[((selectedevent>>20)<0x02e)],1,0,0,"Any Terminate");
+      f->draw(offX+(int)(((float)w-512)*3/8),offY+60,color[((selectedevent>>20)==0x02e)],1,0,0,"Any Crash");
+      f->draw(offX+(int)(((float)w-512)*5/8),offY+60,color[((selectedevent>>20)==0x02f)],1,0,0,"Any Signal");
+      f->draw(offX+(int)(((float)w-512)*7/8),offY+60,color[((selectedevent>>20)==0x02f)],1,0,0,"Specific Signal");
+      break;
   }
+  // event ID
+  SDL_RenderDrawLine(r, offX, h-20, w-256, h-20);
+  f->drawf(offX+8,h-20,color[0],0,0,"Event ID: 0x%.8x",selectedevent);
+  // done/cancel buttons
+  SDL_RenderDrawLine(r,w-256-128,h-20,w-256-128,h);
+  SDL_RenderDrawLine(r,w-256-64,h-20,w-256-64,h);
+  f->draw(w-256-96,h-20,color[0],1,0,0,"Done");
+  f->draw(w-256-32,h-20,color[0],1,0,0,"Cancel");
+
 }
 
 void eteditor::codeeditor() {
