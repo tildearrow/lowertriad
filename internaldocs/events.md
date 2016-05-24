@@ -71,8 +71,8 @@ events that happen after a timer.
 
  ID       | Type                 | Description                                      | Data
 ----------|----------------------|--------------------------------------------------|---------------------
-0x03yxxxxx| timer event          | happens when a timer reaches zero.               | none
-0x03zxxxxx| global timer event   | happens when a global timer reaches zero.        | none
+0x03yxxxxx| timer event          | happens when a timer reaches zero. y <= 7.       | none
+0x03zxxxxx| global timer event   | happens when a global timer reaches zero. z >=8. | none
 
 #### Render event
 
