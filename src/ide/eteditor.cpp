@@ -37,6 +37,10 @@ void eteditor::setcolor(int colindex, SDL_Color colcol) {
   color[colindex]=colcol;
 }
 
+void eteditor::setmouse(int* x, int* y, unsigned int* b, unsigned int* bold) {
+  mX=x; mY=y; mB=b; mBold=bold;
+}
+
 eteditor::eteditor() {
   entitytype=NULL;
 }
