@@ -46,6 +46,36 @@ void eteditor::mouse() {
         select=true;
         selectedevent=0x00000000;
       }
+      if (select) {
+        temprect.w=(w-512)/5;
+        temprect.h=20;
+        temprect.y=offY+20;
+        for (int i=0; i<5; i++) {
+          temprect.x=offX+(((w-512)*i)/5);
+          if (SDL_PointInRect(&temppoint,&temprect)) {
+            switch (i) {
+              case 0: selectedevent=0x00000000; break;
+              case 1: selectedevent=0x01000000; break;
+              case 2: selectedevent=0x02000000; break;
+              case 3: selectedevent=0x03000000; break;
+              case 4: selectedevent=0x0f000000; break;
+            }
+          }
+        }
+        temprect.y=offY+40;
+        for (int i=0; i<5; i++) {
+          temprect.x=offX+(((w-512)*i)/5);
+          if (SDL_PointInRect(&temppoint,&temprect)) {
+            switch (i) {
+              case 0: selectedevent=0x10000000; break;
+              case 1: selectedevent=0x20000000; break;
+              case 2: selectedevent=0x70000000; break;
+              case 3: selectedevent=0x7e000000; break;
+              case 4: selectedevent=0x7f000000; break;
+            }
+          }
+        }
+      }
     }
   }
 }
@@ -83,7 +113,7 @@ void eteditor::eventselector() {
   f->draw(offX+(int)(((float)w-512)*0.5),offY+20,color[((selectedevent>>24)==0x02)],1,0,0,"Collision");
   f->draw(offX+(int)(((float)w-512)*0.7),offY+20,color[((selectedevent>>24)==0x03)],1,0,0,"Timer");
   f->draw(offX+(int)(((float)w-512)*0.9),offY+20,color[((selectedevent>>24)==0x0f)],1,0,0,"Render");
-  f->draw(offX+(int)(((float)w-512)*0.1),offY+40,color[((selectedevent>>25)==0x1)],1,0,0,"Input");
+  f->draw(offX+(int)(((float)w-512)*0.1),offY+40,color[((selectedevent>>28)==0x1)],1,0,0,"Input");
   f->draw(offX+(int)(((float)w-512)*0.3),offY+40,color[((selectedevent>>24)==0x20)],1,0,0,"Scene");
   f->draw(offX+(int)(((float)w-512)*0.5),offY+40,color[((selectedevent>>24)==0x70)],1,0,0,"Game");
   f->draw(offX+(int)(((float)w-512)*0.7),offY+40,color[((selectedevent>>24)==0x7e)],1,0,0,"Error");
