@@ -27,6 +27,7 @@ class eteditor {
   etype* entitytype;
   bool select;
   int selectedevent;
+  int selevinlist;
   font* f;
   SDL_Renderer* r;
   SDL_Point temppoint;

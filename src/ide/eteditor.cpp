@@ -23,6 +23,7 @@
 
 void eteditor::setetype(etype* e) {
   entitytype=e;
+  selevinlist=-1;
 }
 
 void eteditor::setfont(font* fontset) {
@@ -99,7 +100,17 @@ void eteditor::mouse() {
 	    entitytype->eventcode[entitytype->eventcode.size()-1].eventcode="";
 	    select=false;
 	    selectedevent=0;
+	    selevinlist=entitytype->eventcode.size()-1;
 	  }
+	}
+      }
+      temprect.x=w-256;
+      temprect.w=256;
+      temprect.h=20;
+      for (int i=0; i<entitytype->eventcode.size(); i++) {
+	temprect.y=offY+40+(i*20);
+	if (SDL_PointInRect(&temppoint,&temprect)) {
+	  selevinlist=i;
 	}
       }
     }
@@ -122,7 +133,7 @@ void eteditor::draw() {
     f->draw(w-43, offY+22, color[0], 1, 0, 0, "Remove");
     
     for (int i=0; i<entitytype->eventcode.size(); i++) {
-      f->drawf(w-254,offY+42+(i*20),color[0],0,0,"Event 0x%.8x",entitytype->eventcode[i].eventtype);
+      f->drawf(w-254,offY+42+(i*20),color[(i==selevinlist)?1:0],0,0,"Event 0x%.8x",entitytype->eventcode[i].eventtype);
     }
     
     if (select) {
@@ -220,7 +231,8 @@ void eteditor::eventselector() {
 }
 
 void eteditor::codeeditor() {
-  f->draw(offX,offY,color[0],1,0,0,"Code Editor");
+  f->draw(w/2,offY,color[0],1,0,0,"Code Editor");
+  SDL_RenderDrawLine(r,offX,offY+20,w-256,offY+20);
 }
 
 void eteditor::setcolor(int colindex, SDL_Color colcol) {
@@ -232,6 +244,7 @@ void eteditor::setmouse(int* x, int* y, unsigned int* b, unsigned int* bold) {
 }
 
 eteditor::eteditor() {
+  selevinlist=-1;
   entitytype=NULL;
   select=false;
 }
