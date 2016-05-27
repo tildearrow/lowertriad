@@ -36,6 +36,7 @@ class eteditor {
   int* mY;
   unsigned int* mB;
   unsigned int* mBold;
+  bool donotcreate;
   public:
     int offX, offY, w, h;
     void setetype(etype* e);

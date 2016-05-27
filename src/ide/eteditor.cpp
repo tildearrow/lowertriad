@@ -34,6 +34,7 @@ void eteditor::setrenderer(SDL_Renderer* renderer) {
 }
 
 void eteditor::mouse() {
+  donotcreate=false;
   if (*mB&1) {
     if (entitytype!=NULL) {
       temppoint.x=*mX;
@@ -87,11 +88,18 @@ void eteditor::mouse() {
 	// done
 	temprect.x=w-256-128;
 	if (SDL_PointInRect(&temppoint,&temprect)) {
-	  select=false;
-	  entitytype->eventcode.resize(entitytype->eventcode.size()+1);
-	  entitytype->eventcode[entitytype->eventcode.size()-1].eventtype=selectedevent;
-	  entitytype->eventcode[entitytype->eventcode.size()-1].eventcode="";
-	  selectedevent=0;
+	  for (int i=0; i<entitytype->eventcode.size(); i++) {
+	    if (entitytype->eventcode[i].eventtype==selectedevent) {
+	      donotcreate=true; break;
+	    }
+	  }
+	  if (!donotcreate) {
+	    entitytype->eventcode.resize(entitytype->eventcode.size()+1);
+	    entitytype->eventcode[entitytype->eventcode.size()-1].eventtype=selectedevent;
+	    entitytype->eventcode[entitytype->eventcode.size()-1].eventcode="";
+	    select=false;
+	    selectedevent=0;
+	  }
 	}
       }
     }
@@ -206,7 +214,7 @@ void eteditor::eventselector() {
   // done/cancel buttons
   SDL_RenderDrawLine(r,w-256-128,h-20,w-256-128,h);
   SDL_RenderDrawLine(r,w-256-64,h-20,w-256-64,h);
-  f->draw(w-256-96,h-20,color[0],1,0,0,"Done");
+  f->draw(w-256-96,h-20,color[(donotcreate)?4:0],1,0,0,"Done");
   f->draw(w-256-32,h-20,color[0],1,0,0,"Cancel");
 
 }
