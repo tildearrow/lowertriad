@@ -75,6 +75,24 @@ void eteditor::mouse() {
             }
           }
         }
+        // cancel
+        temprect.x=w-256-64;
+	temprect.y=h-20;
+	temprect.w=64;
+	temprect.h=20;
+	if (SDL_PointInRect(&temppoint,&temprect)) {
+	  select=false;
+	  selectedevent=0;
+	}
+	// done
+	temprect.x=w-256-128;
+	if (SDL_PointInRect(&temppoint,&temprect)) {
+	  select=false;
+	  entitytype->eventcode.resize(entitytype->eventcode.size()+1);
+	  entitytype->eventcode[entitytype->eventcode.size()-1].eventtype=selectedevent;
+	  entitytype->eventcode[entitytype->eventcode.size()-1].eventcode="";
+	  selectedevent=0;
+	}
       }
     }
   }
