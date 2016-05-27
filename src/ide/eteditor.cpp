@@ -113,6 +113,10 @@ void eteditor::draw() {
     f->draw(w-128, offY+22, color[0], 1, 0, 0, "Change");
     f->draw(w-43, offY+22, color[0], 1, 0, 0, "Remove");
     
+    for (int i=0; i<entitytype->eventcode.size(); i++) {
+      f->drawf(w-254,offY+42+(i*20),color[0],0,0,"Event 0x%.8x",entitytype->eventcode[i].eventtype);
+    }
+    
     if (select) {
       eventselector();
     } else {
