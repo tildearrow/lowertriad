@@ -48,6 +48,14 @@ void eteditor::mouse() {
         select=true;
         selectedevent=0x00000000;
       }
+      temprect.x=w-85;
+      temprect.y=offY+20;
+      if (SDL_PointInRect(&temppoint,&temprect)) {
+	if (selevinlist!=-1) {
+	  entitytype->eventcode.erase(entitytype->eventcode.begin()+selevinlist);
+	  selevinlist=-1;
+	}
+      }
       if (select) {
         temprect.w=(w-512)/5;
         temprect.h=20;
