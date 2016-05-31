@@ -37,6 +37,7 @@ const char* contributors[CONTRIBUTORS]={"tildearrow"};
 #include "ui.h"
 #include "gfxeditor.h"
 #include "eteditor.h"
+#include "sceneeditor.h"
 #include "resource.h"
 SDL_Window* mainWindow;
 SDL_Renderer* mainRenderer;
@@ -51,6 +52,7 @@ bool willquit;
 uisystem* ui;
 gfxeditor* geditor;
 eteditor* eeditor;
+sceneeditor* seditor;
 font* mainFont;
 int curview;
 int cureditid, curedittype;
@@ -148,6 +150,8 @@ void drawScreen() {
         for (int i=0; i<scenes.size(); i++) {
           mainFont->draw(0,64+(i*20),((cureditid==i && curedittype==3)?(color[1]):(color[0])),0,0,false,scenes[i].name);
         }
+        // also draw scene editor
+        seditor->draw();
         break;
       case 4:
         for (int i=0; i<functions.size(); i++) {
@@ -237,6 +241,11 @@ void handleMouse() {
 	case 3:
 	  if (cureditid>=scenes.size()) {
 	    cureditid=-1;
+	  }
+	  if (cureditid!=-1) {
+	    seditor->setscene(&scenes[cureditid]);
+	  } else {
+	    seditor->setscene(NULL);
 	  }
 	  break;
 	case 4:
@@ -369,6 +378,16 @@ int main() {
   eeditor->h=dh;
   
   eeditor->setmouse(&mouseX,&mouseY,&mouseB,&mouseBold);
+  // initialize scene editor
+  seditor=new sceneeditor;
+  seditor->setfont(mainFont);
+  seditor->setrenderer(mainRenderer);
+  seditor->offX=256;
+  seditor->offY=32;
+  seditor->w=dw;
+  seditor->h=dh;
+  
+  seditor->setmouse(&mouseX,&mouseY,&mouseB,&mouseBold);
   // initialize colors
   for (int i=0; i<16; i++) {
     geditor->setcolor(i,color[i]);
