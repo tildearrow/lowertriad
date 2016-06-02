@@ -192,7 +192,7 @@ mask data resembles a monochrome image, where the value of every pixel means max
 	"yscale": ys,
 	"rotate": r
       },
-      "alpha": a
+      "alpha": a,
       "tileX": 1,
       "tileY": 1,
       "scroll": {
@@ -209,7 +209,7 @@ mask data resembles a monochrome image, where the value of every pixel means max
 	"yscale": ys,
 	"rotate": r
       },
-      "alpha": a
+      "alpha": a,
       "tileX": 1,
       "tileY": 1,
       "scroll": {
