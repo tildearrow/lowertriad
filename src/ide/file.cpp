@@ -19,3 +19,28 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+#include "file.h"
+
+void fileopsform::setfont(font* fontset) {
+  f=fontset;
+}
+
+void fileopsform::setrenderer(SDL_Renderer* renderer) {
+  r=renderer;
+}
+
+void fileopsform::setcolor(int colindex, SDL_Color colcol) {
+  color[colindex]=colcol;
+}
+
+void fileopsform::setmouse(int* x, int* y, unsigned int* b, unsigned int* bold) {
+  mX=x; mY=y; mB=b; mBold=bold;
+}
+
+void fileopsform::draw() {
+  f->drawf(256,256,{255,255,255,255},0,0,"llun");
+}
+
+fileopsform::fileopsform() {
+
+}

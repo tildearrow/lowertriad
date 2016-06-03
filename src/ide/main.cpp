@@ -38,6 +38,7 @@ const char* contributors[CONTRIBUTORS]={"tildearrow"};
 #include "gfxeditor.h"
 #include "eteditor.h"
 #include "sceneeditor.h"
+#include "file.h"
 #include "resource.h"
 SDL_Window* mainWindow;
 SDL_Renderer* mainRenderer;
@@ -53,6 +54,7 @@ uisystem* ui;
 gfxeditor* geditor;
 eteditor* eeditor;
 sceneeditor* seditor;
+fileopsform* fileops;
 font* mainFont;
 int curview;
 int cureditid, curedittype;
@@ -165,6 +167,8 @@ void drawScreen() {
       case 8:
 	drawAboutScreen();
 	break;
+      case 9:
+	fileops->draw();
     }
   }
 }
@@ -203,6 +207,10 @@ void goHelpView() {
 
 void goAboutView() {
   curview=8;
+}
+
+void goFileOpsView() {
+  curview=9;
 }
 
 void handleMouse() {
@@ -351,6 +359,8 @@ int main() {
   ui->addbutton(444,0,72,22,"Functions","",color[0],color[0],goFunctionsView);
   ui->addbutton(516,0,60,22,"Project","",color[0],color[0],goProjectView);
   
+  ui->addbutton(600,0,60,22,"FileOps","",color[0],color[0],goFileOpsView);
+  
   ui->addbutton(1024-160,0,60,22,"Settings","",color[0],color[0],goSettingsView);
   ui->addbutton(1024-100,0,50,22,"Help","",color[0],color[0],goHelpView);
   ui->addbutton(1024-50,0,50,22,"About","",color[0],color[0],goAboutView);
@@ -386,6 +396,16 @@ int main() {
   seditor->offY=32;
   seditor->w=dw;
   seditor->h=dh;
+  
+  seditor->setmouse(&mouseX,&mouseY,&mouseB,&mouseBold);
+  // initialize file ops form
+  fileops=new fileopsform;
+  fileops->setfont(mainFont);
+  fileops->setrenderer(mainRenderer);
+  fileops->offX=0;
+  fileops->offY=32;
+  fileops->w=dw;
+  fileops->h=dh;
   
   seditor->setmouse(&mouseX,&mouseY,&mouseB,&mouseBold);
   // initialize colors

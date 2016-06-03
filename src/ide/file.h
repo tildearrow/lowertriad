@@ -19,7 +19,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+#include "includes.h"
+#include "font.h"
 
 class fileopsform {
-  
+  string filename;
+  font* f;
+  SDL_Renderer* r;
+  SDL_Point temppoint;
+  SDL_Rect temprect;
+  SDL_Color color[16];
+  int* mX;
+  int* mY;
+  unsigned int* mB;
+  unsigned int* mBold;
+  public:
+    int offX, offY, w, h;
+    void setfont(font* fontset);
+    void setrenderer(SDL_Renderer* renderer);
+    void setcolor(int colindex, SDL_Color colcol);
+    void setmouse(int* x, int* y, unsigned int* b, unsigned int* bold);
+    void mouse();
+    void draw();
+    fileopsform();
 };
