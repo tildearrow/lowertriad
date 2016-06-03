@@ -22,12 +22,22 @@
 #ifndef INCLUDES_H
 #define INCLUDES_H
 #include <stdio.h>
+#include <time.h>
 #include <string>
 #include <vector>
 #include <stdarg.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
+// sorry. this program won't compile on windows anymore.
+// at least until i get a new computer.
+#include <sys/stat.h>
+#include <unistd.h>
 typedef std::string string;
+#ifdef WIN32
+const string DS="\\";
+#else
+const string DS="/";
+#endif
 
 #define COPYRIGHT "Copyright (c) 2016 tildearrow (and contributors)"
 
@@ -48,5 +58,8 @@ typedef std::string string;
 #define relMinor 0
 #define relMinor2 0
 #define relRC 0
+
+// format version goes here
+#define formatver 0
 
 #endif

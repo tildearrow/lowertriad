@@ -33,6 +33,8 @@ class fileopsform {
   int* mY;
   unsigned int* mB;
   unsigned int* mBold;
+  int save(string dirname);
+  int load(string dirname);
   public:
     int offX, offY, w, h;
     void setfont(font* fontset);

@@ -217,6 +217,7 @@ void handleMouse() {
   switch (curview) {
     case 0: geditor->mouse(); break;
     case 2: eeditor->mouse(); break;
+    case 9: fileops->mouse(); break;
   }
   if ((mouseB&1)>(mouseBold&1)) { // checks for mouse left pressed
     if (mouseX<256 && mouseY>64) {
@@ -407,7 +408,7 @@ int main() {
   fileops->w=dw;
   fileops->h=dh;
   
-  seditor->setmouse(&mouseX,&mouseY,&mouseB,&mouseBold);
+  fileops->setmouse(&mouseX,&mouseY,&mouseB,&mouseBold);
   // initialize colors
   for (int i=0; i<16; i++) {
     geditor->setcolor(i,color[i]);

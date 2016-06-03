@@ -22,4 +22,4 @@ make
 ```
 
 ### Windows
-got a bsod, so i'm not supporting it. compile it by yourself somehow.
+will be supported soon.
