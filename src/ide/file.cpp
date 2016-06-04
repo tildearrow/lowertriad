@@ -61,6 +61,77 @@ int fileopsform::save(string dirname) {
   \"saveTime\": %ld\n\
 }",dirname.c_str(),vertype,formatver,curtime);
   fclose(ff);
+  // ResourceIndex.json
+  curfilename=dirname+DS+"ResourceIndex.json";
+  ff=fopen(curfilename.c_str(),"wb");
+  
+  fprintf(ff,"{\n\
+  \"graphicsDirectory\": \"Graphic\",\n\
+  \"graphics\": [\n");
+  for (int i=0; i<graphics->size(); i++) {
+    fprintf(ff,"    \"%s.json\"",graphics[0][i].name.c_str());
+    if (i==graphics->size()-1) {
+      fprintf(ff,"\n");
+    } else {
+      fprintf(ff,",\n");
+    }
+  }
+  fprintf(ff,"  ],\n");
+  
+  fprintf(ff,"\
+  \"audioDirectory\": \"Audio\",\n\
+  \"audio\": [\n");
+  for (int i=0; i<sounds->size(); i++) {
+    fprintf(ff,"    \"%s.json\"",sounds[0][i].name.c_str());
+    if (i==sounds->size()-1) {
+      fprintf(ff,"\n");
+    } else {
+      fprintf(ff,",\n");
+    }
+  }
+  fprintf(ff,"  ],\n");
+  
+  fprintf(ff,"\
+  \"entityTypesDirectory\": \"EntityType\",\n\
+  \"entityTypes\": [\n");
+  for (int i=0; i<etypes->size(); i++) {
+    fprintf(ff,"    \"%s.json\"",etypes[0][i].name.c_str());
+    if (i==etypes->size()-1) {
+      fprintf(ff,"\n");
+    } else {
+      fprintf(ff,",\n");
+    }
+  }
+  fprintf(ff,"  ],\n");
+  
+  fprintf(ff,"\
+  \"scenes\": \"Scene\",\n\
+  \"scenes\": [\n");
+  for (int i=0; i<scenes->size(); i++) {
+    fprintf(ff,"    \"%s.json\"",scenes[0][i].name.c_str());
+    if (i==scenes->size()-1) {
+      fprintf(ff,"\n");
+    } else {
+      fprintf(ff,",\n");
+    }
+  }
+  fprintf(ff,"  ],\n");
+  
+  fprintf(ff,"\
+  \"functionsDirectory\": \"Function\",\n\
+  \"functions\": [\n");
+  for (int i=0; i<functions->size(); i++) {
+    fprintf(ff,"    \"%s.json\"",functions[0][i].name.c_str());
+    if (i==functions->size()-1) {
+      fprintf(ff,"\n");
+    } else {
+      fprintf(ff,",\n");
+    }
+  }
+  fprintf(ff,"  ]\n\
+}");
+  
+  fclose(ff);
   printf("success\n");
   return true;
 }
@@ -95,6 +166,14 @@ void fileopsform::mouse() {
 
 void fileopsform::draw() {
   f->drawf(256,256,{255,255,255,255},0,0,"click to save to savedproject/. you will be able to change path later.");
+}
+
+void fileopsform::setdata(std::vector<graphic>* g, std::vector<audio>* s, std::vector<etype>* e, std::vector<scene>* sc, std::vector<function>* f) {
+  graphics=g;
+  sounds=s;
+  etypes=e;
+  scenes=sc;
+  functions=f;
 }
 
 fileopsform::fileopsform() {

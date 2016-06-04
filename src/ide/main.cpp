@@ -403,6 +403,7 @@ int main() {
   fileops=new fileopsform;
   fileops->setfont(mainFont);
   fileops->setrenderer(mainRenderer);
+  fileops->setdata(&graphics,&sounds,&etypes,&scenes,&functions);
   fileops->offX=0;
   fileops->offY=32;
   fileops->w=dw;

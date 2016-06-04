@@ -21,6 +21,7 @@
  */
 #include "includes.h"
 #include "font.h"
+#include "resource.h"
 
 class fileopsform {
   string filename;
@@ -33,6 +34,11 @@ class fileopsform {
   int* mY;
   unsigned int* mB;
   unsigned int* mBold;
+  std::vector<graphic>* graphics;
+  std::vector<audio>* sounds;
+  std::vector<etype>* etypes;
+  std::vector<scene>* scenes;
+  std::vector<function>* functions;
   int save(string dirname);
   int load(string dirname);
   public:
@@ -41,6 +47,7 @@ class fileopsform {
     void setrenderer(SDL_Renderer* renderer);
     void setcolor(int colindex, SDL_Color colcol);
     void setmouse(int* x, int* y, unsigned int* b, unsigned int* bold);
+    void setdata(std::vector<graphic>* g, std::vector<audio>* s, std::vector<etype>* e, std::vector<scene>* sc, std::vector<function>* f);
     void mouse();
     void draw();
     fileopsform();
