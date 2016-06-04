@@ -132,6 +132,97 @@ int fileopsform::save(string dirname) {
 }");
   
   fclose(ff);
+  // Graphic, Audio, EntityType, Scene and Function directories
+  curfilename=dirname+DS+"Graphic";
+  if (stat(curfilename.c_str(),&tempstat)==-1) {
+    if (errno==2) {
+      printf("creating Graphic dir...\n");
+      mkdir(curfilename.c_str(),0755);
+    } else {
+      perror("i'm sorry, but");
+      return false;
+    }
+  } else {
+    if (S_ISDIR(tempstat.st_mode)) {
+      printf("Graphic dir exists\n");
+    } else {
+      printf("Graphic is not a directory. sorry.\n");
+      return false;
+    }
+  }
+  
+  curfilename=dirname+DS+"Audio";
+  if (stat(curfilename.c_str(),&tempstat)==-1) {
+    if (errno==2) {
+      printf("creating Audio dir...\n");
+      mkdir(curfilename.c_str(),0755);
+    } else {
+      perror("i'm sorry, but");
+      return false;
+    }
+  } else {
+    if (S_ISDIR(tempstat.st_mode)) {
+      printf("Audio dir exists\n");
+    } else {
+      printf("Audio is not a directory. sorry.\n");
+      return false;
+    }
+  }
+  
+  curfilename=dirname+DS+"EntityType";
+  if (stat(curfilename.c_str(),&tempstat)==-1) {
+    if (errno==2) {
+      printf("creating EntityType dir...\n");
+      mkdir(curfilename.c_str(),0755);
+    } else {
+      perror("i'm sorry, but");
+      return false;
+    }
+  } else {
+    if (S_ISDIR(tempstat.st_mode)) {
+      printf("EntityType dir exists\n");
+    } else {
+      printf("EntityType is not a directory. sorry.\n");
+      return false;
+    }
+  }
+  
+  curfilename=dirname+DS+"Scene";
+  if (stat(curfilename.c_str(),&tempstat)==-1) {
+    if (errno==2) {
+      printf("creating Scene dir...\n");
+      mkdir(curfilename.c_str(),0755);
+    } else {
+      perror("i'm sorry, but");
+      return false;
+    }
+  } else {
+    if (S_ISDIR(tempstat.st_mode)) {
+      printf("Scene dir exists\n");
+    } else {
+      printf("Scene is not a directory. sorry.\n");
+      return false;
+    }
+  }
+  
+  curfilename=dirname+DS+"Function";
+  if (stat(curfilename.c_str(),&tempstat)==-1) {
+    if (errno==2) {
+      printf("creating Function dir...\n");
+      mkdir(curfilename.c_str(),0755);
+    } else {
+      perror("i'm sorry, but");
+      return false;
+    }
+  } else {
+    if (S_ISDIR(tempstat.st_mode)) {
+      printf("Function dir exists\n");
+    } else {
+      printf("Function is not a directory. sorry.\n");
+      return false;
+    }
+  }
+  
   printf("success\n");
   return true;
 }
