@@ -48,7 +48,7 @@ the current format version is 0.
     
   - ResourceIndex.json
   
-  - ProjectName.json
+  - Project.json
   
 ## Project file
 

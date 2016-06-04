@@ -50,7 +50,7 @@ int fileopsform::save(string dirname) {
   FILE* ff;
   string curfilename;
   // projectname.json
-  curfilename=dirname+DS+dirname+".json";
+  curfilename=dirname+DS+"Project.json";
   ff=fopen(curfilename.c_str(),"wb");
   fprintf(ff,"{\n\
   \"projectName\": \"%s\",\n\
