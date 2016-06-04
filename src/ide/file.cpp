@@ -223,6 +223,41 @@ int fileopsform::save(string dirname) {
     }
   }
   
+  // GraphicResourceName.json
+  
+  for (int i=0; i<graphics->size(); i++) {
+    curfilename=dirname+DS+"Graphic"+DS+graphics[0][i].name+".json";
+    ff=fopen(curfilename.c_str(),"wb");
+    fprintf(ff,"{\n\
+  \"resourceName\": \"%s\",\n\
+  \"width\": %d,\n\
+  \"height\": %d,\n\
+  \"frames\": %d,\n\
+  \"isBackground\": 0,\n\
+  \"colMask\": {\n\
+    \"type\": 0,\n\
+    \"colMaskCoords\": {\n\
+      \"x\": 0,\n\
+      \"y\": 0,\n\
+      \"w\": %d,\n\
+      \"h\": %d\n\
+    },\n\
+    \"threshold\": 0,\n\
+    \"multipleColMask\": 0,\n\
+    \"colMaskFile\": \"Data/null.bin\"\n\
+  },\n\
+  \"origin\": {\n\
+    \"x\": %d,\n\
+    \"y\": %d\n\
+  },\n\
+  \"graphicFile\": \"Data/null.png\"\n\
+}",graphics[0][i].name.c_str(), graphics[0][i].width, graphics[0][i].height,
+   graphics[0][i].subgraphics, graphics[0][i].width, graphics[0][i].height,
+   graphics[0][i].originX, graphics[0][i].originY);
+
+    fclose(ff);
+  }
+  
   printf("success\n");
   return true;
 }
