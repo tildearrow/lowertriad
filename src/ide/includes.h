@@ -33,7 +33,8 @@
 #include <sys/stat.h>
 #include <unistd.h>
 typedef std::string string;
-#ifdef WIN32
+#ifdef _WIN32
+#error no.
 const string DS="\\";
 #else
 const string DS="/";
