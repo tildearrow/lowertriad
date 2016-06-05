@@ -26,6 +26,7 @@
 #include <string>
 #include <vector>
 #include <stdarg.h>
+#include <errno.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 // sorry. this program won't compile on windows anymore.
