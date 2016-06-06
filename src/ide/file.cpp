@@ -32,9 +32,9 @@ int fileopsform::save(string dirname) {
   if (stat(dirname.c_str(),&tempstat)==-1) {
     if (errno==2) {
       printf("dir does not exist. creating.\n");
-	    #ifdef _WIN32
-	    CreateDirectory(dirname.c_str(),NULL);
-	    #else
+      #ifdef _WIN32
+      CreateDirectory(dirname.c_str(),NULL);
+      #else
       mkdir(dirname.c_str(),0755);
       #endif
     } else {
@@ -141,9 +141,9 @@ int fileopsform::save(string dirname) {
     if (errno==2) {
       printf("creating Graphic dir...\n");
       #ifdef _WIN32
-	    CreateDirectory(curfilename.c_str(), NULL);
+      CreateDirectory(curfilename.c_str(), NULL);
       #else
-	    mkdir(curfilename.c_str(), 0755);
+      mkdir(curfilename.c_str(), 0755);
       #endif
     } else {
       perror("i'm sorry, but");
@@ -163,9 +163,9 @@ int fileopsform::save(string dirname) {
     if (errno==2) {
       printf("creating Audio dir...\n");
       #ifdef _WIN32
-	    CreateDirectory(curfilename.c_str(), NULL);
+      CreateDirectory(curfilename.c_str(), NULL);
       #else
-  	  mkdir(curfilename.c_str(), 0755);
+      mkdir(curfilename.c_str(), 0755);
       #endif
     } else {
       perror("i'm sorry, but");
