@@ -22,4 +22,13 @@ make
 ```
 
 ### Windows
-will be supported soon.
+finally.
+
+install CMake and Visual Studio 2015, then clone this repository and
+```
+mkdir build
+cd build
+cmake ..
+```
+
+then open resulting solution in VS and Build > Build Solution.

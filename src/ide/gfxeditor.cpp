@@ -185,10 +185,14 @@ void gfxeditor::setdata(std::vector<unsigned char*>* thedata, int thewidth, int 
   temprect.x=0; temprect.y=0; temprect.w=width; temprect.h=height;
   unsigned char** lpptr;
   int pitch=0;
+  #ifndef _WIN32
   SDL_LockTexture(datadraw, &temprect, (void**)lpptr, &pitch);
   printf("pitch of %d\n",pitch);
   memcpy((void*)lpptr[0],(data[0][0]),width*height*4);
   SDL_UnlockTexture(datadraw);
+  #else
+  printf("sorry. will fix later.\n");
+  #endif
 }
 
 void gfxeditor::setfont(font* fontset) {

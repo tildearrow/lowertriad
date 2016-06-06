@@ -29,13 +29,14 @@
 #include <errno.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
-// sorry. this program won't compile on windows anymore.
-// at least until i get a new computer.
 #include <sys/stat.h>
+#ifdef _WIN32
+#include <windows.h>
+#else
 #include <unistd.h>
+#endif
 typedef std::string string;
 #ifdef _WIN32
-#error no.
 const string DS="\\";
 #else
 const string DS="/";

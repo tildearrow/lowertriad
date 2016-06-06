@@ -96,7 +96,11 @@ void drawAboutScreen() {
       mainFont->drawf(dw/2,80,color[0],1,0,"(v%d.%d.%d)",relMajor,relMinor,relMinor2);
       break;
     case 5:
+      #ifdef _WIN32
+      mainFont->drawf(dw / 2, 80, color[0], 1, 0, "(git)");
+      #else
       mainFont->drawf(dw/2,80,color[0],1,0,"(git %s)",GIT_COMMIT);
+      #endif
       break;
     default:
       mainFont->drawf(dw/2,80,color[0],1,0,"(unknown version)");
@@ -319,7 +323,7 @@ void makeNewResource() {
   }
 }
 
-int main() {
+int main(int argc, char** argv) {
   willquit=false;
   // init everything
   SDL_Init(SDL_INIT_VIDEO);

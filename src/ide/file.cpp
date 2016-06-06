@@ -28,18 +28,21 @@ int fileopsform::save(string dirname) {
   // begin saving
   // this is entirely experimental code for now
   // check for directory
-  // sorry, no windows support.
   struct stat tempstat;
   if (stat(dirname.c_str(),&tempstat)==-1) {
     if (errno==2) {
       printf("dir does not exist. creating.\n");
+	    #ifdef _WIN32
+	    CreateDirectory(dirname.c_str(),NULL);
+	    #else
       mkdir(dirname.c_str(),0755);
+      #endif
     } else {
       perror("i'm sorry, but");
       return false;
     }
   } else {
-    if (S_ISDIR(tempstat.st_mode)) {
+    if (tempstat.st_mode&0040000) {
       printf("project exists. overwriting.\n");
     } else {
       printf("is not a directory. sorry.\n");
@@ -137,13 +140,17 @@ int fileopsform::save(string dirname) {
   if (stat(curfilename.c_str(),&tempstat)==-1) {
     if (errno==2) {
       printf("creating Graphic dir...\n");
-      mkdir(curfilename.c_str(),0755);
+      #ifdef _WIN32
+	    CreateDirectory(curfilename.c_str(), NULL);
+      #else
+	    mkdir(curfilename.c_str(), 0755);
+      #endif
     } else {
       perror("i'm sorry, but");
       return false;
     }
   } else {
-    if (S_ISDIR(tempstat.st_mode)) {
+    if (tempstat.st_mode&0040000) {
       printf("Graphic dir exists\n");
     } else {
       printf("Graphic is not a directory. sorry.\n");
@@ -155,13 +162,17 @@ int fileopsform::save(string dirname) {
   if (stat(curfilename.c_str(),&tempstat)==-1) {
     if (errno==2) {
       printf("creating Audio dir...\n");
-      mkdir(curfilename.c_str(),0755);
+      #ifdef _WIN32
+	    CreateDirectory(curfilename.c_str(), NULL);
+      #else
+  	  mkdir(curfilename.c_str(), 0755);
+      #endif
     } else {
       perror("i'm sorry, but");
       return false;
     }
   } else {
-    if (S_ISDIR(tempstat.st_mode)) {
+    if (tempstat.st_mode&0040000) {
       printf("Audio dir exists\n");
     } else {
       printf("Audio is not a directory. sorry.\n");
@@ -173,13 +184,17 @@ int fileopsform::save(string dirname) {
   if (stat(curfilename.c_str(),&tempstat)==-1) {
     if (errno==2) {
       printf("creating EntityType dir...\n");
-      mkdir(curfilename.c_str(),0755);
+      #ifdef _WIN32
+      CreateDirectory(curfilename.c_str(), NULL);
+      #else
+      mkdir(curfilename.c_str(), 0755);
+      #endif
     } else {
       perror("i'm sorry, but");
       return false;
     }
   } else {
-    if (S_ISDIR(tempstat.st_mode)) {
+    if (tempstat.st_mode&0040000) {
       printf("EntityType dir exists\n");
     } else {
       printf("EntityType is not a directory. sorry.\n");
@@ -191,13 +206,17 @@ int fileopsform::save(string dirname) {
   if (stat(curfilename.c_str(),&tempstat)==-1) {
     if (errno==2) {
       printf("creating Scene dir...\n");
-      mkdir(curfilename.c_str(),0755);
+      #ifdef _WIN32
+      CreateDirectory(curfilename.c_str(), NULL);
+      #else
+      mkdir(curfilename.c_str(), 0755);
+      #endif
     } else {
       perror("i'm sorry, but");
       return false;
     }
   } else {
-    if (S_ISDIR(tempstat.st_mode)) {
+    if (tempstat.st_mode&0040000) {
       printf("Scene dir exists\n");
     } else {
       printf("Scene is not a directory. sorry.\n");
@@ -209,13 +228,17 @@ int fileopsform::save(string dirname) {
   if (stat(curfilename.c_str(),&tempstat)==-1) {
     if (errno==2) {
       printf("creating Function dir...\n");
-      mkdir(curfilename.c_str(),0755);
+      #ifdef _WIN32
+      CreateDirectory(curfilename.c_str(), NULL);
+      #else
+      mkdir(curfilename.c_str(), 0755);
+      #endif
     } else {
       perror("i'm sorry, but");
       return false;
     }
   } else {
-    if (S_ISDIR(tempstat.st_mode)) {
+    if (tempstat.st_mode&0040000) {
       printf("Function dir exists\n");
     } else {
       printf("Function is not a directory. sorry.\n");

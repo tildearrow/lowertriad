@@ -38,7 +38,13 @@ void font::drawf(int x, int y, SDL_Color col, int align, int valign, const char*
   va_list va;
   va_start(va,format);
   char* fs;
+  #ifdef _WIN32
+  // temporary workaround...
+  fs=new char[2048];
+  vsnprintf(fs,2047,format,va);
+  #else
   vasprintf(&fs,format,va);
+  #endif
   va_end(va);
   string tempstring;
   tempstring=fs;
