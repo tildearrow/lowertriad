@@ -281,6 +281,41 @@ int fileopsform::save(string dirname) {
     fclose(ff);
   }
   
+  // ETypeName.json
+  
+  for (int i=0; i<etypes->size(); i++) {
+    curfilename=dirname+DS+"EntityType"+DS+etypes[0][i].name+".json";
+    ff=fopen(curfilename.c_str(),"wb");
+    fprintf(ff,"{\n\
+  \"resourceName\": \"%s\",\n\
+  \"defaultGraphic\": \"%s\",\n\
+  \"defaultSubGraphic\": %d,\n\
+  \"parent\": %d,\n\
+  \"category\": %d,\n\
+  \"events\": [\n\
+",etypes[0][i].name.c_str(), etypes[0][i].initialgraphic, etypes[0][i].initialsubgraphic,
+  etypes[0][i].parent, etypes[0][i].category);
+    
+    for (int j=0; j<etypes[0][i].eventcode.size(); j++) {
+      fprintf(ff,"\
+    {\n\
+      \"id\": %d,\n\
+      \"code\": \"Code/%s/Event%.8X.cpp\"\n\
+    }",etypes[0][i].eventcode[j].eventtype,
+       etypes[0][i].name.c_str(),
+       etypes[0][i].eventcode[j].eventtype);
+      if (j!=etypes[0][i].eventcode.size()-1) {
+	 fprintf(ff,",\n");
+      }
+    }
+    
+    fprintf(ff,"\n\
+  ]\n\
+}");
+
+    fclose(ff);
+  }
+  
   printf("success\n");
   return true;
 }
