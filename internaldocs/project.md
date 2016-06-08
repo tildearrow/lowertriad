@@ -188,7 +188,7 @@ mask data resembles a monochrome image, where the value of every pixel means max
       "dimensions": {
 	"x": x,
 	"y": y,
-	"xscale": ws,
+	"xscale": xs,
 	"yscale": ys,
 	"rotate": r
       },
@@ -205,7 +205,7 @@ mask data resembles a monochrome image, where the value of every pixel means max
       "dimensions": {
 	"x": x,
 	"y": y,
-	"xscale": ws,
+	"xscale": xs,
 	"yscale": ys,
 	"rotate": r
       },
