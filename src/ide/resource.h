@@ -65,13 +65,44 @@ struct viewport {
   float viewangle, portangle;
 };
 
+struct bglist {
+  int bgid;
+  struct {
+    int x, y;
+    double xs, ys, a;
+  } dims;
+  double alpha;
+  bool tilex, tiley;
+  int sx, sy;
+};
+
+struct layerlist {
+  string name;
+  struct entlist {
+    int etid;
+    SDL_Point pos;
+    double xs, ys, r, alpha;
+    SDL_Color blend;
+    string initcode;
+  };
+  std::vector<entlist> layers;
+};
+
 struct scene {
   string name;
   int id;
   int width;
   int height;
+  struct {
+    int w, h;
+    double a;
+  } grid;
+  string initcode, finishcode;
   bool freeze;
+  SDL_Color clearcolor;
+  std::vector<bglist> backgrounds;
   std::vector<viewport> viewports;
+  std::vector<layerlist> layers;
 };
 
 struct function {
