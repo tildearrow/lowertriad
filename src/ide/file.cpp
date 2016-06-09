@@ -343,6 +343,7 @@ int fileopsform::save(string dirname) {
 }",scenes[0][i].name.c_str(), scenes[0][i].width, scenes[0][i].height,
   scenes[0][i].grid.w, scenes[0][i].grid.h, scenes[0][i].grid.a,
   "null", "null", scenes[0][i].freeze, scenes[0][i].clearcolor);
+  fclose(ff);
   }
   
   printf("success\n");
