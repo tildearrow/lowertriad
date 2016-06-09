@@ -316,6 +316,35 @@ int fileopsform::save(string dirname) {
     fclose(ff);
   }
   
+  // SceneName.json
+  
+  for (int i=0; i<scenes->size(); i++) {
+    curfilename=dirname+DS+"Scene"+DS+scenes[0][i].name+".json";
+    ff=fopen(curfilename.c_str(),"wb");
+    fprintf(ff,"{\n\
+  \"resourceName\": \"%s\",\n\
+  \"width\": %d,\n\
+  \"height\": %d,\n\
+  \"grid\": {\n\
+    \"width\": %d,\n\
+    \"height\": %d,\n\
+    \"angle\": %f\n\
+  },\n\
+  \"initCode\": \"%s\",\n\
+  \"finishCode\": \"%s\",\n\
+  \"freeze\": %d,\n\
+  \"clearColor\": %d,\n\
+  \"backgrounds\": [\n\
+  ],\n\
+  \"viewports\": [\n\
+  ],\n\
+  \"layers\": [\n\
+  ]\n\
+}",scenes[0][i].name.c_str(), scenes[0][i].width, scenes[0][i].height,
+  scenes[0][i].grid.w, scenes[0][i].grid.h, scenes[0][i].grid.a,
+  "null", "null", scenes[0][i].freeze, scenes[0][i].clearcolor);
+  }
+  
   printf("success\n");
   return true;
 }
