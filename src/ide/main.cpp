@@ -333,7 +333,7 @@ int main(int argc, char** argv) {
   dw=1024; dh=600;
   string title;
   title="LowerTriad";
-  mainWindow=SDL_CreateWindow(title.c_str(),0,0,dw,dh,SDL_WINDOW_RESIZABLE);
+  mainWindow=SDL_CreateWindow(title.c_str(),SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,dw,dh,SDL_WINDOW_RESIZABLE);
   if (!mainWindow) {
     printf("i'm sorry, but window can't be created: %s\n",SDL_GetError());
     return 1;
