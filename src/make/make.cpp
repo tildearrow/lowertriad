@@ -20,8 +20,29 @@
  * SOFTWARE.
  */
 //#include "includes.h"
+#include <stdio.h>
+#include <sys/stat.h>
+#include <string>
+typedef std::string string;
+struct stat tempstat;
+string curfile;
+FILE* f;
 
-int main() {
-  
+int main(int argc, char** argv) {
+  curfile="Project.json";
+  if (stat(curfile.c_str(),&tempstat)==-1) {
+    printf("%s: Not a LowerTriad project. Quitting.\n",argv[0]);
+    return 1;
+  }
+  printf("Reading LowerTriad project...\n");
+  f=fopen(curfile.c_str(),"rb");
+  if (!f) {
+    perror("error while reading Project.json");
+    return 1;
+  }
+  // for now just copy test project
+  // will add code here
+  fclose(f);
+  printf("Success.\n");
   return 0;
 }
