@@ -5,7 +5,8 @@
 class Entity {
   public:
     SDL_Renderer* r;
-    double x, y, speed, dir;
+    double x, y;
+    LTEVector mov, grav;
     void update();
     void draw();
 };

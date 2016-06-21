@@ -28,6 +28,10 @@ struct LTColor {
   double r, g, b, a;
 };
 
+struct LTEVector {
+  double len, dir;
+};
+
 LTRectangle makeRectangleFromPoints(LTPoint p1, LTPoint p2);
 LTRectangle makeRectangleLength(double x, double y, double w, double h);
 LTRectangle makeRectangle(double x1, double y1, double x2, double y2);
