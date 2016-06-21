@@ -1,6 +1,6 @@
 #ifndef SCENE_H
 #define SCENE_H
-#include "../includes.h"
+#include "../lowertriad.h"
 #include "../entity/entity.h"
 
 class Scene {

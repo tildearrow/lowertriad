@@ -1,4 +1,17 @@
-#include "includes.h"
+#ifndef INCLUDES_H
+#define INCLUDES_H
+#include <stdio.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
+#include <string>
+#include <queue>
+#include <vector>
+
+typedef std::string string;
+
+#define pi 3.141592653589793238462643383279502884197169399375105820974944592307816406286
+#define GAME_NAME "lowertriad"
+#define SCENE_COUNT 1
 
 class LTRectangle {
   public:
@@ -20,9 +33,12 @@ LTRectangle makeRectangleLength(double x, double y, double w, double h);
 LTRectangle makeRectangle(double x1, double y1, double x2, double y2);
 double pointDistance(LTPoint p1, LTPoint p2);
 double pointDirection(LTPoint p1, LTPoint p2);
+double decomposeVectorX(double mod, double dir);
+double decomposeVectorY(double mod, double dir);
 LTColor makeColorFromRGB(unsigned char r, unsigned char g, unsigned char b);
 LTColor makeColorFromRGBA(unsigned char r, unsigned char g, unsigned char b, unsigned char a);
 LTColor makeColorFromDoubleRGB(double r, double g, double b);
 LTColor makeColorFromDoubleRGBA(double r, double g, double b, double a);
 LTColor makeColorFromSDLColor(SDL_Color color);
 void setBlendMode(int mode);
+#endif

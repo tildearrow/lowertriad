@@ -1,7 +1,8 @@
 #include "entity.h"
 
 void Entity::update() {
-
+  x+=decomposeVectorX(speed,dir);
+  y-=decomposeVectorY(speed,dir);
 }
 
 void Entity::draw() {
