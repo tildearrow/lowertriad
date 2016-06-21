@@ -4,7 +4,9 @@
 
 class Entity {
   public:
+    SDL_Renderer* r;
     double x, y;
     void update();
+    void draw();
 };
 #endif
