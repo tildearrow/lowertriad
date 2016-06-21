@@ -1,3 +1,10 @@
+#ifndef ENTITY_H
+#define ENTITY_H
+#include "../includes.h"
+
 class Entity {
-  double x, y;
+  public:
+    double x, y;
+    void update();
 };
+#endif
