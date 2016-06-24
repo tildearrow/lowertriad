@@ -1,11 +1,13 @@
 #ifndef SCENE_H
 #define SCENE_H
+
 #include "../lowertriad.h"
 #include "../entity/entity.h"
+#include "../entity/entities.h"
 
 class Scene {
-  std::vector<Entity> entities;
-  Entity nullEntity;
+  std::vector<Entity*> entities;
+  testtype1 nullEntity;
   unsigned char* data;
   SDL_Renderer* r;
   public:

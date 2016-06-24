@@ -12,6 +12,7 @@ typedef std::string string;
 #define pi 3.141592653589793238462643383279502884197169399375105820974944592307816406286
 #define GAME_NAME "lowertriad"
 #define SCENE_COUNT 1
+#define TIMERS_PER_ENTITY 16
 
 class LTRectangle {
   public:
