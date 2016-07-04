@@ -22,7 +22,6 @@ make
 ```
 
 ### Windows
-finally.
 
 install CMake and Visual Studio 2015, then clone this repository and
 ```
