@@ -22,6 +22,7 @@
 #include "includes.h"
 #include "font.h"
 #include "resource.h"
+#include "../../lib/json/src/json.hpp"
 
 class fileopsform {
   string filename;
