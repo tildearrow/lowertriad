@@ -169,6 +169,12 @@ void eteditor::properties() {
   f->draw(w-128, offY+2, color[0], 1, 0, false, "Properties");
   SDL_RenderDrawLine(r, w, offY+20, w-256, offY+20);
   
+  f->draw(w-128,offY+22,color[0],1,0,false,"Default Graphic");
+  f->draw(w-128,offY+42,color[0],1,0,false,"Default Subgraphic");
+  f->draw(w-128,offY+62,color[0],1,0,false,"Category Index");
+  f->draw(w-128,offY+82,color[0],1,0,false,"Parent");
+  f->draw(w-128,offY+102,color[0],1,0,false,"Visible by Default");
+  
   SDL_RenderDrawLine(r, w, h-20, w-256, h-20);
   f->draw(w-128, h-18, color[0], 1, 0, false, "Switch to Events");
 }
