@@ -122,19 +122,23 @@ void eteditor::mouse() {
 	    selevinlist=i;
 	  }
 	}
-	// switch to properties
-	temprect.y=h-20;
-	if (SDL_PointInRect(&temppoint,&temprect)) {
-	  props=true;
+	if (!(*mBold&1)) {
+	  // switch to properties
+	  temprect.y=h-20;
+	  if (SDL_PointInRect(&temppoint,&temprect)) {
+	    props=true;
+	  }
 	}
       } else {
 	temprect.x=w-256;
 	temprect.y=h-20;
 	temprect.w=256;
 	temprect.h=20;
-	// switch to events
-	if (SDL_PointInRect(&temppoint,&temprect)) {
-	  props=false;
+	if (!(*mBold&1)) {
+	  // switch to events
+	  if (SDL_PointInRect(&temppoint,&temprect)) {
+	    props=false;
+	  }
 	}
 	// properties code here
       }
