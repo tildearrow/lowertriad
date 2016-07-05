@@ -40,108 +40,144 @@ void eteditor::mouse() {
     if (entitytype!=NULL) {
       temppoint.x=*mX;
       temppoint.y=*mY;
-      temprect.x=w-256;
-      temprect.y=offY+20;
-      temprect.w=85;
-      temprect.h=20;
-      if (SDL_PointInRect(&temppoint,&temprect)) {
-        select=true;
-        selectedevent=0x00000000;
-      }
-      temprect.x=w-85;
-      temprect.y=offY+20;
-      if (SDL_PointInRect(&temppoint,&temprect)) {
-	if (selevinlist!=-1) {
-	  entitytype->eventcode.erase(entitytype->eventcode.begin()+selevinlist);
-	  selevinlist=-1;
-	}
-      }
-      if (select) {
-        temprect.w=(w-512)/5;
-        temprect.h=20;
-        temprect.y=offY+20;
-        for (int i=0; i<5; i++) {
-          temprect.x=offX+(((w-512)*i)/5);
-          if (SDL_PointInRect(&temppoint,&temprect)) {
-            switch (i) {
-              case 0: selectedevent=0x00000000; break;
-              case 1: selectedevent=0x01000000; break;
-              case 2: selectedevent=0x02000000; break;
-              case 3: selectedevent=0x03000000; break;
-              case 4: selectedevent=0x0f000000; break;
-            }
-          }
-        }
-        temprect.y=offY+40;
-        for (int i=0; i<5; i++) {
-          temprect.x=offX+(((w-512)*i)/5);
-          if (SDL_PointInRect(&temppoint,&temprect)) {
-            switch (i) {
-              case 0: selectedevent=0x10000000; break;
-              case 1: selectedevent=0x20000000; break;
-              case 2: selectedevent=0x70000000; break;
-              case 3: selectedevent=0x7e000000; break;
-              case 4: selectedevent=0x7f000000; break;
-            }
-          }
-        }
-        // cancel
-        temprect.x=w-256-64;
-	temprect.y=h-20;
-	temprect.w=64;
+      if (!props) {
+	temprect.x=w-256;
+	temprect.y=offY+20;
+	temprect.w=85;
 	temprect.h=20;
 	if (SDL_PointInRect(&temppoint,&temprect)) {
-	  select=false;
-	  selectedevent=0;
+	  select=true;
+	  selectedevent=0x00000000;
 	}
-	// done
-	temprect.x=w-256-128;
+	temprect.x=w-85;
+	temprect.y=offY+20;
 	if (SDL_PointInRect(&temppoint,&temprect)) {
-	  for (int i=0; i<entitytype->eventcode.size(); i++) {
-	    if (entitytype->eventcode[i].eventtype==selectedevent) {
-	      donotcreate=true; break;
+	  if (selevinlist!=-1) {
+	    entitytype->eventcode.erase(entitytype->eventcode.begin()+selevinlist);
+	    selevinlist=-1;
+	  }
+	}
+	if (select) {
+	  temprect.w=(w-512)/5;
+	  temprect.h=20;
+	  temprect.y=offY+20;
+	  for (int i=0; i<5; i++) {
+	    temprect.x=offX+(((w-512)*i)/5);
+	    if (SDL_PointInRect(&temppoint,&temprect)) {
+	      switch (i) {
+		case 0: selectedevent=0x00000000; break;
+		case 1: selectedevent=0x01000000; break;
+		case 2: selectedevent=0x02000000; break;
+		case 3: selectedevent=0x03000000; break;
+		case 4: selectedevent=0x0f000000; break;
+	      }
 	    }
 	  }
-	  if (!donotcreate) {
-	    entitytype->eventcode.resize(entitytype->eventcode.size()+1);
-	    entitytype->eventcode[entitytype->eventcode.size()-1].eventtype=selectedevent;
-	    entitytype->eventcode[entitytype->eventcode.size()-1].eventcode="";
+	  temprect.y=offY+40;
+	  for (int i=0; i<5; i++) {
+	    temprect.x=offX+(((w-512)*i)/5);
+	    if (SDL_PointInRect(&temppoint,&temprect)) {
+	      switch (i) {
+		case 0: selectedevent=0x10000000; break;
+		case 1: selectedevent=0x20000000; break;
+		case 2: selectedevent=0x70000000; break;
+		case 3: selectedevent=0x7e000000; break;
+		case 4: selectedevent=0x7f000000; break;
+	      }
+	    }
+	  }
+	  // cancel
+	  temprect.x=w-256-64;
+	  temprect.y=h-20;
+	  temprect.w=64;
+	  temprect.h=20;
+	  if (SDL_PointInRect(&temppoint,&temprect)) {
 	    select=false;
 	    selectedevent=0;
-	    selevinlist=entitytype->eventcode.size()-1;
+	  }
+	  // done
+	  temprect.x=w-256-128;
+	  if (SDL_PointInRect(&temppoint,&temprect)) {
+	    for (int i=0; i<entitytype->eventcode.size(); i++) {
+	      if (entitytype->eventcode[i].eventtype==selectedevent) {
+		donotcreate=true; break;
+	      }
+	    }
+	    if (!donotcreate) {
+	      entitytype->eventcode.resize(entitytype->eventcode.size()+1);
+	      entitytype->eventcode[entitytype->eventcode.size()-1].eventtype=selectedevent;
+	      entitytype->eventcode[entitytype->eventcode.size()-1].eventcode="";
+	      select=false;
+	      selectedevent=0;
+	      selevinlist=entitytype->eventcode.size()-1;
+	    }
 	  }
 	}
-      }
-      temprect.x=w-256;
-      temprect.w=256;
-      temprect.h=20;
-      for (int i=0; i<entitytype->eventcode.size(); i++) {
-	temprect.y=offY+40+(i*20);
-	if (SDL_PointInRect(&temppoint,&temprect)) {
-	  selevinlist=i;
+	temprect.x=w-256;
+	temprect.w=256;
+	temprect.h=20;
+	for (int i=0; i<entitytype->eventcode.size(); i++) {
+	  temprect.y=offY+40+(i*20);
+	  if (SDL_PointInRect(&temppoint,&temprect)) {
+	    selevinlist=i;
+	  }
 	}
+	// switch to properties
+	temprect.y=h-20;
+	if (SDL_PointInRect(&temppoint,&temprect)) {
+	  props=true;
+	}
+      } else {
+	temprect.x=w-256;
+	temprect.y=h-20;
+	temprect.w=256;
+	temprect.h=20;
+	// switch to events
+	if (SDL_PointInRect(&temppoint,&temprect)) {
+	  props=false;
+	}
+	// properties code here
       }
     }
   }
 }
 
+void eteditor::eventlist() {
+  f->draw(w-128, offY+2, color[0], 1, 0, false, "Events");
+  SDL_RenderDrawLine(r, w, offY+20, w-256, offY+20);
+  SDL_RenderDrawLine(r, w, offY+40, w-256, offY+40);
+  SDL_RenderDrawLine(r, w-85, offY+20, w-85, offY+40);
+  SDL_RenderDrawLine(r, w-171, offY+20, w-171, offY+40);
+  
+  f->draw(w-214, offY+22, color[0], 1, 0, 0, "Add");
+  f->draw(w-128, offY+22, color[0], 1, 0, 0, "Change");
+  f->draw(w-43, offY+22, color[0], 1, 0, 0, "Remove");
+  
+  for (int i=0; i<entitytype->eventcode.size(); i++) {
+    f->drawf(w-254,offY+42+(i*20),color[(i==selevinlist)?1:0],0,0,"Event 0x%.8x",entitytype->eventcode[i].eventtype);
+  }
+  
+  SDL_RenderDrawLine(r, w, h-20, w-256, h-20);
+  f->draw(w-128, h-18, color[0], 1, 0, false, "Switch to Properties");
+}
+
+void eteditor::properties() {
+  f->draw(w-128, offY+2, color[0], 1, 0, false, "Properties");
+  SDL_RenderDrawLine(r, w, offY+20, w-256, offY+20);
+  
+  SDL_RenderDrawLine(r, w, h-20, w-256, h-20);
+  f->draw(w-128, h-18, color[0], 1, 0, false, "Switch to Events");
+}
+
 void eteditor::draw() {
   f->drawf(256,256,{255,255,255,255},0,0,"%d",(entitytype==NULL));
   if (entitytype!=NULL) {
-    f->draw(w-128, offY+2, color[0], 1, 0, false, "Events");
-    SDL_RenderDrawLine(r, w, offY+20, w-256, offY+20);
-    SDL_RenderDrawLine(r, w, offY+40, w-256, offY+40);
-    SDL_RenderDrawLine(r, w-256, offY, w-256, h);
+    SDL_RenderDrawLine(r, w-256, offY, w-256, h);  
     
-    SDL_RenderDrawLine(r, w-85, offY+20, w-85, offY+40);
-    SDL_RenderDrawLine(r, w-171, offY+20, w-171, offY+40);
-    
-    f->draw(w-214, offY+22, color[0], 1, 0, 0, "Add");
-    f->draw(w-128, offY+22, color[0], 1, 0, 0, "Change");
-    f->draw(w-43, offY+22, color[0], 1, 0, 0, "Remove");
-    
-    for (int i=0; i<entitytype->eventcode.size(); i++) {
-      f->drawf(w-254,offY+42+(i*20),color[(i==selevinlist)?1:0],0,0,"Event 0x%.8x",entitytype->eventcode[i].eventtype);
+    if (props) {
+      properties();
+    } else {
+      eventlist();
     }
     
     if (select) {
@@ -255,4 +291,5 @@ eteditor::eteditor() {
   selevinlist=-1;
   entitytype=NULL;
   select=false;
+  props=false;
 }

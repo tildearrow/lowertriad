@@ -25,7 +25,7 @@
 
 class eteditor {
   etype* entitytype;
-  bool select;
+  bool select, props;
   int selectedevent;
   int selevinlist;
   font* f;
@@ -46,8 +46,10 @@ class eteditor {
     void setcolor(int colindex, SDL_Color colcol);
     void setmouse(int* x, int* y, unsigned int* b, unsigned int* bold);
     void mouse();
+    void eventlist();
     void eventselector();
     void codeeditor();
+    void properties();
     void draw();
     eteditor();
 };
