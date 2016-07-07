@@ -51,89 +51,66 @@ int fileopsform::save(string dirname) {
   }
   // begin writing the project
   FILE* ff;
-  string curfilename;
+  string curfilename, projd;
+  json proj;
+  std::vector<string> names;
   // projectname.json
   curfilename=dirname+DS+"Project.json";
   ff=fopen(curfilename.c_str(),"wb");
-  fprintf(ff,"{\n\
-  \"projectName\": \"%s\",\n\
-  \"projectID\": \"00000000-0000-0000-0000-000000000000\",\n\
-  \"lastSaveVersionType\": %d,\n\
-  \"lastSaveVersion\": \"null\",\n\
-  \"formatVersion\": %d,\n\
-  \"saveTime\": %ld\n\
-}",dirname.c_str(),vertype,formatver,curtime);
+  proj={
+    {"projectName", dirname},
+    {"projectID","00000000-0000-0000-0000-000000000000"},
+    {"lastSaveVersionType",vertype},
+    {"lastSaveVersion","null"},
+    {"formatVersion",formatver},
+    {"saveTime",curtime}
+  };
+  projd=proj.dump(2);
+  fprintf(ff,projd.c_str());
   fclose(ff);
   // ResourceIndex.json
   curfilename=dirname+DS+"ResourceIndex.json";
   ff=fopen(curfilename.c_str(),"wb");
   
-  fprintf(ff,"{\n\
-  \"graphicsDirectory\": \"Graphic\",\n\
-  \"graphics\": [\n");
+  proj.clear();
+  proj["graphicsDirectory"]="Graphic";
+  proj["audioDirectory"]="Audio";
+  proj["entityTypesDirectory"]="EntityType";
+  proj["scenesDirectory"]="Scene";
+  proj["functionsDirectory"]="Function";
+  
+  names.resize(0);
   for (int i=0; i<graphics->size(); i++) {
-    fprintf(ff,"    \"%s.json\"",graphics[0][i].name.c_str());
-    if (i==graphics->size()-1) {
-      fprintf(ff,"\n");
-    } else {
-      fprintf(ff,",\n");
-    }
+    names.push_back(graphics[0][i].name);
   }
-  fprintf(ff,"  ],\n");
+  proj["graphics"]=names;
   
-  fprintf(ff,"\
-  \"audioDirectory\": \"Audio\",\n\
-  \"audio\": [\n");
+  names.resize(0);
   for (int i=0; i<sounds->size(); i++) {
-    fprintf(ff,"    \"%s.json\"",sounds[0][i].name.c_str());
-    if (i==sounds->size()-1) {
-      fprintf(ff,"\n");
-    } else {
-      fprintf(ff,",\n");
-    }
+    names.push_back(sounds[0][i].name);
   }
-  fprintf(ff,"  ],\n");
+  proj["audio"]=names;
   
-  fprintf(ff,"\
-  \"entityTypesDirectory\": \"EntityType\",\n\
-  \"entityTypes\": [\n");
+  names.resize(0);
   for (int i=0; i<etypes->size(); i++) {
-    fprintf(ff,"    \"%s.json\"",etypes[0][i].name.c_str());
-    if (i==etypes->size()-1) {
-      fprintf(ff,"\n");
-    } else {
-      fprintf(ff,",\n");
-    }
+    names.push_back(etypes[0][i].name);
   }
-  fprintf(ff,"  ],\n");
+  proj["entityTypes"]=names;
   
-  fprintf(ff,"\
-  \"scenes\": \"Scene\",\n\
-  \"scenes\": [\n");
+  names.resize(0);
   for (int i=0; i<scenes->size(); i++) {
-    fprintf(ff,"    \"%s.json\"",scenes[0][i].name.c_str());
-    if (i==scenes->size()-1) {
-      fprintf(ff,"\n");
-    } else {
-      fprintf(ff,",\n");
-    }
+    names.push_back(scenes[0][i].name);
   }
-  fprintf(ff,"  ],\n");
+  proj["scenes"]=names;
   
-  fprintf(ff,"\
-  \"functionsDirectory\": \"Function\",\n\
-  \"functions\": [\n");
+  names.resize(0);
   for (int i=0; i<functions->size(); i++) {
-    fprintf(ff,"    \"%s.json\"",functions[0][i].name.c_str());
-    if (i==functions->size()-1) {
-      fprintf(ff,"\n");
-    } else {
-      fprintf(ff,",\n");
-    }
+    names.push_back(functions[0][i].name);
   }
-  fprintf(ff,"  ]\n\
-}");
+  proj["functions"]=names;
   
+  projd=proj.dump(2);
+  fprintf(ff,projd.c_str());
   fclose(ff);
   // Graphic, Audio, EntityType, Scene and Function directories
   curfilename=dirname+DS+"Graphic";

@@ -23,6 +23,7 @@
 #include "font.h"
 #include "resource.h"
 #include "../../lib/json/src/json.hpp"
+typedef nlohmann::json json;
 
 class fileopsform {
   string filename;
