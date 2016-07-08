@@ -228,33 +228,39 @@ int fileopsform::save(string dirname) {
   for (int i=0; i<graphics->size(); i++) {
     curfilename=dirname+DS+"Graphic"+DS+graphics[0][i].name+".json";
     ff=fopen(curfilename.c_str(),"wb");
-    fprintf(ff,"{\n\
-  \"resourceName\": \"%s\",\n\
-  \"width\": %d,\n\
-  \"height\": %d,\n\
-  \"frames\": %d,\n\
-  \"isBackground\": 0,\n\
-  \"colMask\": {\n\
-    \"type\": 0,\n\
-    \"colMaskCoords\": {\n\
-      \"x\": 0,\n\
-      \"y\": 0,\n\
-      \"w\": %d,\n\
-      \"h\": %d\n\
-    },\n\
-    \"threshold\": 0,\n\
-    \"multipleColMask\": 0,\n\
-    \"colMaskFile\": \"Data/null.bin\"\n\
-  },\n\
-  \"origin\": {\n\
-    \"x\": %d,\n\
-    \"y\": %d\n\
-  },\n\
-  \"graphicFile\": \"Data/null.png\"\n\
-}",graphics[0][i].name.c_str(), graphics[0][i].width, graphics[0][i].height,
-   graphics[0][i].subgraphics, graphics[0][i].width, graphics[0][i].height,
-   graphics[0][i].originX, graphics[0][i].originY);
+    
+    proj.clear();
+    
+    proj={
+      {"resourceName",graphics[0][i].name},
+      {"width",graphics[0][i].width},
+      {"height",graphics[0][i].height},
+      {"frames",graphics[0][i].subgraphics},
+      {"isBackground",graphics[0][i].background},
+      {"colMask",{
+	  {"type",0},
+	  {"colMaskCoords",{
+	      {"x",0},
+	      {"y",0},
+	      {"w",graphics[0][i].width},
+	      {"h",graphics[0][i].height},
+	    }
+	  },
+	  {"threshold",0},
+	  {"multipleColMask",0},
+	  {"colMaskFile","Data/null.bin"}
+	}
+      },
+      {"origin",{
+	  {"x",graphics[0][i].originX},
+	  {"y",graphics[0][i].originY}
+	}
+      },
+      {"graphicFile","Data/null.png"}
+    };
 
+    projd=proj.dump(2);
+    fprintf(ff,projd.c_str());
     fclose(ff);
   }
   
@@ -263,33 +269,29 @@ int fileopsform::save(string dirname) {
   for (int i=0; i<etypes->size(); i++) {
     curfilename=dirname+DS+"EntityType"+DS+etypes[0][i].name+".json";
     ff=fopen(curfilename.c_str(),"wb");
-    fprintf(ff,"{\n\
-  \"resourceName\": \"%s\",\n\
-  \"defaultGraphic\": \"%s\",\n\
-  \"defaultSubGraphic\": %d,\n\
-  \"parent\": %d,\n\
-  \"category\": %d,\n\
-  \"events\": [\n\
-",etypes[0][i].name.c_str(), etypes[0][i].initialgraphic, etypes[0][i].initialsubgraphic,
-  etypes[0][i].parent, etypes[0][i].category);
+    
+    proj.clear();
+    
+    proj={
+      {"resourceName",etypes[0][i].name},
+      {"defaultGraphic",etypes[0][i].initialgraphic},
+      {"defaultSubGraphic",etypes[0][i].initialsubgraphic},
+      {"parent",etypes[0][i].parent},
+      {"category",etypes[0][i].category}
+    };
     
     for (int j=0; j<etypes[0][i].eventcode.size(); j++) {
-      fprintf(ff,"\
-    {\n\
-      \"id\": %d,\n\
-      \"code\": \"Code/%s/Event%.8X.cpp\"\n\
-    }",etypes[0][i].eventcode[j].eventtype,
-       etypes[0][i].name.c_str(),
-       etypes[0][i].eventcode[j].eventtype);
-      if (j!=etypes[0][i].eventcode.size()-1) {
-	 fprintf(ff,",\n");
-      }
+      char* r;
+      asprintf(&r,"Code/%s/Event%.8X.cpp",etypes[0][i].name.c_str(),etypes[0][i].eventcode[j].eventtype);
+      proj["events"]+={
+	{"id",etypes[0][i].eventcode[j].eventtype},
+	{"code",r}
+      };
+      free(r);
     }
     
-    fprintf(ff,"\n\
-  ]\n\
-}");
-
+    projd=proj.dump(2);
+    fprintf(ff,projd.c_str());
     fclose(ff);
   }
   
@@ -298,29 +300,50 @@ int fileopsform::save(string dirname) {
   for (int i=0; i<scenes->size(); i++) {
     curfilename=dirname+DS+"Scene"+DS+scenes[0][i].name+".json";
     ff=fopen(curfilename.c_str(),"wb");
-    fprintf(ff,"{\n\
-  \"resourceName\": \"%s\",\n\
-  \"width\": %d,\n\
-  \"height\": %d,\n\
-  \"grid\": {\n\
-    \"width\": %d,\n\
-    \"height\": %d,\n\
-    \"angle\": %f\n\
-  },\n\
-  \"initCode\": \"%s\",\n\
-  \"finishCode\": \"%s\",\n\
-  \"freeze\": %d,\n\
-  \"clearColor\": %d,\n\
-  \"backgrounds\": [\n\
-  ],\n\
-  \"viewports\": [\n\
-  ],\n\
-  \"layers\": [\n\
-  ]\n\
-}",scenes[0][i].name.c_str(), scenes[0][i].width, scenes[0][i].height,
-  scenes[0][i].grid.w, scenes[0][i].grid.h, scenes[0][i].grid.a,
-  "null", "null", scenes[0][i].freeze, scenes[0][i].clearcolor);
-  fclose(ff);
+    
+    proj.clear();
+    
+    proj={
+      {"resourceName",scenes[0][i].name},
+      {"width",scenes[0][i].width},
+      {"height",scenes[0][i].height},
+      {"grid",{
+	  {"width",scenes[0][i].grid.w},
+	  {"height",scenes[0][i].grid.h},
+	  {"angle",scenes[0][i].grid.a}
+	}
+      },
+      {"initCode","null"},
+      {"finishCode","null"},
+      {"freeze",scenes[0][i].freeze},
+      {"clearColor",(scenes[0][i].clearcolor.r)<<24+
+		    (scenes[0][i].clearcolor.g)<<16+
+		    (scenes[0][i].clearcolor.b)<<8+
+		    (scenes[0][i].clearcolor.a)
+      }
+    };
+    
+    for (int j=0; j<scenes[0][i].backgrounds.size(); j++) {
+      proj["backgrounds"]+={
+	
+      };
+    }
+    
+    for (int j=0; j<scenes[0][i].viewports.size(); j++) {
+      proj["viewports"]+={
+	
+      };
+    }
+    
+    for (int j=0; j<scenes[0][i].layers.size(); j++) {
+      proj["layers"]+={
+	
+      };
+    }
+    
+    projd=proj.dump(2);
+    fprintf(ff,projd.c_str());
+    fclose(ff);
   }
   
   printf("success\n");
