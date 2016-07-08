@@ -28,6 +28,27 @@ struct stat tempstat;
 string curfile;
 FILE* f;
 
+int filecopy(string dest, string src) {
+  FILE* d;
+  FILE* s;
+  int c;
+  d=fopen(dest.c_str(),"wb");
+  if (!d) {
+    return 1;
+  }
+  s=fopen(src.c_str(),"rb");
+  if (!s) {
+    fclose(d);
+    return 1;
+  }
+  while (!feof(s)) {
+    fputc(fgetc(s),d);
+  }
+  fclose(d);
+  fclose(s);
+  return 0;
+}
+
 int main(int argc, char** argv) {
   curfile="Project.json";
   if (stat(curfile.c_str(),&tempstat)==-1) {
