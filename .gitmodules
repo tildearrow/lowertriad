@@ -1,3 +1,6 @@
 [submodule "lib/json"]
 	path = lib/json
 	url = https://github.com/nlohmann/json.git
+[submodule "lib/asprintf"]
+	path = lib/asprintf
+	url = https://github.com/littlstar/asprintf.c
