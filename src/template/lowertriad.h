@@ -29,8 +29,8 @@ struct LTColor {
   double r, g, b, a;
 };
 
-struct LTEVector {
-  double len, dir;
+struct LTMovement {
+  double speed, dir;
 };
 
 LTRectangle makeRectangleFromPoints(LTPoint p1, LTPoint p2);

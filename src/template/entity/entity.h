@@ -6,7 +6,7 @@ class Entity {
   public:
     SDL_Renderer* r;
     double x, y;
-    LTEVector mov, grav;
+    LTMovement mov, grav;
     int timer[TIMERS_PER_ENTITY];
     void update();
     virtual void draw();
