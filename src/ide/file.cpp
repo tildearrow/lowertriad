@@ -282,6 +282,7 @@ int fileopsform::save(string dirname) {
     
     for (int j=0; j<etypes[0][i].eventcode.size(); j++) {
       char* r;
+      // aaaaaaaaaaaaaaaaaaargh!!!!
       asprintf(&r,"Code/%s/Event%.8X.cpp",etypes[0][i].name.c_str(),etypes[0][i].eventcode[j].eventtype);
       proj["events"]+={
 	{"id",etypes[0][i].eventcode[j].eventtype},

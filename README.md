@@ -23,6 +23,8 @@ make
 
 ### Windows
 
+#### Warning: Due to asprintf (and Microsoft's compiler), Windows is not supported. Maybe next week.
+
 install CMake and Visual Studio 2015, then clone this repository and
 ```
 mkdir build
