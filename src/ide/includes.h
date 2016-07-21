@@ -32,7 +32,6 @@
 #include <sys/stat.h>
 #ifdef _WIN32
 #include <windows.h>
-#include "../lib/asprintf/asprintf.h"
 #else
 #include <unistd.h>
 #endif
