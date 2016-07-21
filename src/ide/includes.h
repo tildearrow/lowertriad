@@ -21,6 +21,7 @@
  */
 #ifndef INCLUDES_H
 #define INCLUDES_H
+#define SDL_MAIN_HANDLED
 #include <stdio.h>
 #include <time.h>
 #include <string>

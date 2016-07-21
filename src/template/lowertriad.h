@@ -1,5 +1,6 @@
 #ifndef INCLUDES_H
 #define INCLUDES_H
+#define SDL_MAIN_HANDLED
 #include <stdio.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
