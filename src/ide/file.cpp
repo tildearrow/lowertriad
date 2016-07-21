@@ -283,7 +283,12 @@ int fileopsform::save(string dirname) {
     for (int j=0; j<etypes[0][i].eventcode.size(); j++) {
       char* r;
       // aaaaaaaaaaaaaaaaaaargh!!!!
+      #ifdef _WIN32
+      // for now. until i get visual studio on this 16GB thing.
+      snprintf(r,2047,"Code/%s/Event%.8X.cpp",etypes[0][i].name.c_str(),etypes[0][i].eventcode[j].eventtype);
+      #else
       asprintf(&r,"Code/%s/Event%.8X.cpp",etypes[0][i].name.c_str(),etypes[0][i].eventcode[j].eventtype);
+      #endif
       proj["events"]+={
 	{"id",etypes[0][i].eventcode[j].eventtype},
 	{"code",r}
